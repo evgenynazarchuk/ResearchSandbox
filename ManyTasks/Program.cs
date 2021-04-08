@@ -40,7 +40,7 @@ namespace Research
         static void PerformanceCreate()
         {
             var createTimeTasks = new Stopwatch();
-            var collectTime = new Stopwatch();
+            //var collectTime = new Stopwatch();
             int countTasks = 0;
 
             //GC.AddMemoryPressure(999999999999); // ?
@@ -59,7 +59,8 @@ namespace Research
                 createTimeTasks.Stop();
                 countTasks++;
 
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
+                Task.Delay(1000).Wait();
 
                 //collectTime.Start();
                 //GC.Collect();
