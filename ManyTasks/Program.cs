@@ -25,7 +25,7 @@ namespace Research
                 {
                     tasks.Add(Task.Factory.StartNew(() =>
                     {
-                        Thread.Sleep(100);
+                        Thread.Sleep(100); // dont use thread!!!!! use await task.delay!!!!
                     }));
                 }
                 stopWatch.Stop();
