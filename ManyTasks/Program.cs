@@ -50,26 +50,27 @@ namespace Research
                 createTimeTasks.Start();
                 for (int j = 0; j < 1_000_000; j++)
                 {
-                    var t = Task.Factory.StartNew(() =>
+                    var t = Task.Factory.StartNew(async () =>
                     {
-                        ;
+                        await Task.Delay(100);
+                        //Thread.Sleep(10000); // do not use thread, do not work deallocate thread memory
                     });
                 }
                 createTimeTasks.Stop();
                 countTasks++;
 
-                Thread.Sleep(10000);
+                Thread.Sleep(1000);
 
-                collectTime.Start();
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
-                collectTime.Stop();
+                //collectTime.Start();
+                //GC.Collect();
+                //GC.WaitForPendingFinalizers();
+                //GC.Collect();
+                //collectTime.Stop();
 
-                //Console.WriteLine($"{createTimeTasks.ElapsedMilliseconds}\t\t{countTasks}\t\t{GC.GetTotalMemory(false)}");
-                Console.WriteLine($"{collectTime.ElapsedMilliseconds}\t\t{createTimeTasks.ElapsedMilliseconds}\t\t{countTasks}\t\t{GC.GetTotalMemory(false)}");
+                Console.WriteLine($"{createTimeTasks.ElapsedMilliseconds}\t\t{countTasks}\t\t{GC.GetTotalMemory(false)}");
+                //Console.WriteLine($"{createTimeTasks.ElapsedMilliseconds}\t\t{collectTime.ElapsedMilliseconds}\t\t{countTasks}\t\t{GC.GetTotalMemory(false)}");
                 createTimeTasks.Reset();
-                collectTime.Reset();
+                //collectTime.Reset();
             }
             // how wait ???
 
