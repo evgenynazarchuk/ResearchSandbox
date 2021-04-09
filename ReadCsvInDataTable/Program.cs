@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace ReadCsvInDataTable
 {
@@ -9,7 +10,7 @@ namespace ReadCsvInDataTable
     {
         static void Main(string[] args)
         {
-            using var streamReader = new StreamReader("data.csv");
+            using var streamReader = new StreamReader("data.csv", Encoding.UTF8);
             Regex parser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
             string line;
             List<Info> rows = new();
@@ -32,10 +33,13 @@ namespace ReadCsvInDataTable
             public Info(string[] row)
             {
                 City = row[0];
-                Number = int.Parse(row[1]);
+                if (row[1] is not null && row[1] != "")
+                {
+                    Number = int.Parse(row[1]);
+                }
             }
             public string City;
-            public int Number;
+            public int? Number;
         }
     }
 }
