@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncAwaitSample", "AsyncAw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncAwaitException", "AsyncAwaitException\AsyncAwaitException.csproj", "{8171469B-68D3-4C06-9305-B698FA34700C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountUsersForPeriod", "CountUserForPeriod\CountUsersForPeriod.csproj", "{8E3ACD81-613D-4A39-9E54-F23B476A3869}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountUsersForPeriod", "CountUserForPeriod\CountUsersForPeriod.csproj", "{8E3ACD81-613D-4A39-9E54-F23B476A3869}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadCsvInDataTable", "ReadCsvInDataTable\ReadCsvInDataTable.csproj", "{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8E3ACD81-613D-4A39-9E54-F23B476A3869}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E3ACD81-613D-4A39-9E54-F23B476A3869}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E3ACD81-613D-4A39-9E54-F23B476A3869}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
