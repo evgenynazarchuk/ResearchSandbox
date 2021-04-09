@@ -4,20 +4,20 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Research
+namespace LargeAmountOfTasks
 {
     class Program
     {
         static void Main(string[] args)
         {
-            PerformanceCreate();
+            CreateWithoutWait();
         }
 
-        static void Create()
+        static void CreateWithWait()
         {
             var tasks = new List<Task>();
             var stopWatch = new Stopwatch();
-
+            
             for (int i = 0; i < 30; i++)
             {
                 stopWatch.Start();
@@ -38,7 +38,7 @@ namespace Research
             Task.WaitAll(tasks.ToArray()); // it is not optimal!
         }
 
-        static void PerformanceCreate()
+        static void CreateWithoutWait()
         {
             var createTimeTasks = new Stopwatch();
             //var collectTime = new Stopwatch();
