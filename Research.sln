@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncAwaitException", "Asyn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountUsersForPeriod", "CountUserForPeriod\CountUsersForPeriod.csproj", "{8E3ACD81-613D-4A39-9E54-F23B476A3869}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadCsvInDataTable", "ReadCsvInDataTable\ReadCsvInDataTable.csproj", "{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadCsvInDataTable", "ReadCsvInDataTable\ReadCsvInDataTable.csproj", "{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskMatrixWithWait", "TaskMatrixWithWait\TaskMatrixWithWait.csproj", "{250878AC-E2EB-406F-A6D7-67907482481C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{250878AC-E2EB-406F-A6D7-67907482481C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{250878AC-E2EB-406F-A6D7-67907482481C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{250878AC-E2EB-406F-A6D7-67907482481C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{250878AC-E2EB-406F-A6D7-67907482481C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
