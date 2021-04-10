@@ -7,14 +7,42 @@ namespace CheckTaskRunning
     {
         static async Task Main(string[] args)
         {
-            SecondSample();
+            FirstSample();
+            //SecondSample();
+        }
+
+        public static void FirstSample()
+        {
+            Task t = Task.Run(async () =>
+            {
+              Console.WriteLine("App: start");
+              await Task.Delay(5000); // work
+              Console.WriteLine("App: end");
+            });
+            //Task t = Task.Factory.StartNew(() =>
+            //{
+            //    Console.WriteLine("App: start");
+            //    Task.Delay(5000).Wait(); // work
+            //    Console.WriteLine("App: end");
+            //});
+            //Task t = Task.Factory.StartNew(async () =>
+            //{
+            //    Console.WriteLine("App: start");
+            //    await Task.Delay(5000); // do not work!!!!!!!!!!!!!!
+            //    Console.WriteLine("App: end");
+            //});
+
+            Console.WriteLine(t.Status);
+            Console.WriteLine(t.Status);
+            Task.WaitAll(t);
+            Console.WriteLine(t.Status);
         }
 
         public static void SecondSample()
         {
-            var countTask = 10;
+            var countTask = 100_000;
             var tasks = new Task[countTask];
-            Action<object> action = async (i) => Console.WriteLine($"{i}");
+            Action<object> action = (i) => Console.WriteLine($"{i}");
 
             for (int i = 0; i < countTask; i++)
             {
@@ -22,22 +50,6 @@ namespace CheckTaskRunning
             }
 
             Task.WaitAll(tasks);
-        }
-
-        public static void FirstSample()
-        {
-            Task t = Task.Run(async () =>
-            {
-                Console.WriteLine("Start");
-                await Task.Delay(5000); // ???????????????? do not work!!!!!!!
-                Console.WriteLine("End");
-            });
-            Console.WriteLine(t.Status);
-            Console.WriteLine(t.Status);
-            Task.WaitAll(t);
-            Console.WriteLine(t.Status);
-            //await Task.Delay(6000);
-            Console.WriteLine(t.Status);
         }
     }
 }

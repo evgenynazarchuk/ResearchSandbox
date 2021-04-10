@@ -9,10 +9,10 @@ namespace NonBlockingAccess
     {
         static void Main(string[] args)
         {
-            //CheckFileAccess1();
+            CheckFileAccess1();
             //CheckConsoleAccess1();
             //CheckConsoleAccess2();
-            CheckConsoleAccess3();
+            //CheckConsoleAccess3();
         }
 
         static void CheckFileAccess1()
@@ -36,6 +36,14 @@ namespace NonBlockingAccess
             for (int i = 0; i < tasksCount; i++)
             {
                 tasks[i] = Task.Factory.StartNew(action, i);
+                //tasks[i] = Task.Run(() =>
+                //{
+                //    lock (@lock)
+                //    {
+                //        sw.WriteLine(i.ToString());
+                //        sw.Flush();
+                //    }
+                //}); do not work
             }
             Task.WaitAll(tasks);
             watch.Stop(); // ~1 second for 100 000 write file tasks
