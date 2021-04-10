@@ -25,7 +25,7 @@ namespace NonBlockingAccess
 
             //FileStream f = new FileStream("data.txt", FileMode.Truncate, FileAccess.Write, FileShare.Write);
             StreamWriter sw = new("data.txt");
-            Action<object> action = (msg) =>
+            Action<object> action = async (msg) =>
             {
                 lock (@lock)
                 {
@@ -33,23 +33,21 @@ namespace NonBlockingAccess
                     sw.Flush();
                     //f.Write(Encoding.ASCII.GetBytes(msg.ToString() + "\n")); // так же
                     //f.Flush();
+                    //await sw.WriteLineAsync(msg.ToString()); // dot not work, await not use with lock
+                    //await sw.FlushAsync();
                 }
-                //f.Write(Encoding.ASCII.GetBytes(msg.ToString() + "\n")); // do not work
+                //f.Write(Encoding.ASCII.GetBytes(msg.ToString() + "\n")); // do not work, need lock
                 //f.Flush();
+                //await sw.WriteLineAsync(msg.ToString()); // do not work, need lock
+                //await sw.FlushAsync();
             };
-
+            //Task t111 = new Task()
             watch.Start();
             for (int i = 0; i < tasksCount; i++)
             {
-                tasks[i] = Task.Factory.StartNew(action, i);
-                //tasks[i] = Task.Run(() =>
-                //{
-                //    lock (@lock)
-                //    {
-                //        sw.WriteLine(i.ToString());
-                //        sw.Flush();
-                //    }
-                //}); do not work
+                tasks[i] = Task.Factory.StartNew(action, i); // work
+                //tasks[i] = new Task(action, i); // work
+                //tasks[i].Start();
             }
             Task.WaitAll(tasks);
             watch.Stop(); // ~1 second for 100 000 write file tasks
