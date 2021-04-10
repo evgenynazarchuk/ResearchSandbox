@@ -23,11 +23,11 @@ namespace CountUsersForPeriod
     {
         static void Main(string[] args)
         {
-            int seconds = 10;
-            int totalUsers = 5000000;
-            int milliseconds = seconds * 1000;
-            int interval = 1;
-            int users = 1;
+            var seconds = 10;
+            var totalUsers = 5000000;
+            var milliseconds = seconds * 1000;
+            var interval = 1;
+            var users = 1;
 
             if (milliseconds > totalUsers)
             {
