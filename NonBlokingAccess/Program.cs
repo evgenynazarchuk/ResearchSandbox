@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Text;
 
 namespace NonBlockingAccess
 {
@@ -22,6 +23,7 @@ namespace NonBlockingAccess
             var tasks = new Task[tasksCount];
             object @lock = new();
 
+            //FileStream f = new FileStream("data.txt", FileMode.Truncate, FileAccess.Write, FileShare.Write);
             StreamWriter sw = new("data.txt");
             Action<object> action = (msg) =>
             {
@@ -29,7 +31,11 @@ namespace NonBlockingAccess
                 {
                     sw.WriteLine(msg.ToString());
                     sw.Flush();
+                    //f.Write(Encoding.ASCII.GetBytes(msg.ToString() + "\n")); // так же
+                    //f.Flush();
                 }
+                //f.Write(Encoding.ASCII.GetBytes(msg.ToString() + "\n")); // do not work
+                //f.Flush();
             };
 
             watch.Start();
