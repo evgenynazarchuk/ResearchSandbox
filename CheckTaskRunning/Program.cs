@@ -7,6 +7,25 @@ namespace CheckTaskRunning
     {
         static async Task Main(string[] args)
         {
+            SecondSample();
+        }
+
+        public static void SecondSample()
+        {
+            var countTask = 10;
+            var tasks = new Task[countTask];
+            Action<object> action = async (i) => Console.WriteLine($"{i}");
+
+            for (int i = 0; i < countTask; i++)
+            {
+                tasks[i] = Task.Factory.StartNew(action, i);
+            }
+
+            Task.WaitAll(tasks);
+        }
+
+        public static void FirstSample()
+        {
             Task t = Task.Run(async () =>
             {
                 Console.WriteLine("Start");

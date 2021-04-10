@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadCsvInDataTable", "ReadC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMatrixWithWait", "TaskMatrixWithWait\TaskMatrixWithWait.csproj", "{250878AC-E2EB-406F-A6D7-67907482481C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckTaskRunning", "CheckTaskRunning\CheckTaskRunning.csproj", "{421946B3-7333-4C24-B547-FF97A0DABCCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckTaskRunning", "CheckTaskRunning\CheckTaskRunning.csproj", "{421946B3-7333-4C24-B547-FF97A0DABCCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NonBlockingAccess", "NonBlokingAccess\NonBlockingAccess.csproj", "{69DDBBF0-4F8E-4231-BC5E-AB1DDE1D570C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{421946B3-7333-4C24-B547-FF97A0DABCCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{421946B3-7333-4C24-B547-FF97A0DABCCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{421946B3-7333-4C24-B547-FF97A0DABCCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69DDBBF0-4F8E-4231-BC5E-AB1DDE1D570C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69DDBBF0-4F8E-4231-BC5E-AB1DDE1D570C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69DDBBF0-4F8E-4231-BC5E-AB1DDE1D570C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69DDBBF0-4F8E-4231-BC5E-AB1DDE1D570C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
