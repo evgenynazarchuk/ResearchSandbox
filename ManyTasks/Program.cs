@@ -23,7 +23,7 @@ namespace LargeAmountOfTasks
                 stopWatch.Start();
                 for (int j = 0; j < 10_000_000; j++)
                 {
-                    tasks.Add(Task.Factory.StartNew(() =>
+                    tasks.Add(Task.Run(() =>
                     {
                         //Thread.Sleep(100); // dont use thread!!!!! use await task.delay!!!!
                         Task.Delay(10).Wait();
@@ -51,7 +51,7 @@ namespace LargeAmountOfTasks
                 createTimeTasks.Start();
                 for (int j = 0; j < 1_000_000; j++)
                 {
-                    var t = Task.Factory.StartNew(async () =>
+                    var t = Task.Run(async () =>
                     {
                         await Task.Delay(100);
                         //Thread.Sleep(10000); // do not use thread, do not work deallocate thread memory

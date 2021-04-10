@@ -12,6 +12,11 @@
 //10        10 000      500 000     1 / 50 = (users / ms)
 //10        10 000      5 000 000   1 / 500 = (users / ms)
 
+//1         1 000       10000        1 / 1
+//
+//
+///// 1000 / 10 = 100
+
 namespace CountUsersForPeriod
 {
     class Program
