@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MayBeCall", "AnyOf\MayBeCal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeManage", "DateTimeManage\DateTimeManage.csproj", "{75B5FFB8-0564-4A0A-B027-B1F6B147DD33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueTaskSamples", "ValueTaskSamples\ValueTaskSamples.csproj", "{2ECBF1AF-9739-41AF-824F-398671BFD383}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValueTaskSamples", "ValueTaskSamples\ValueTaskSamples.csproj", "{2ECBF1AF-9739-41AF-824F-398671BFD383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReturnTaskWithoutAwait", "ReturnTaskWithoutAwait\ReturnTaskWithoutAwait.csproj", "{2951A307-E481-49B8-BFCA-7A31F8C161DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{2ECBF1AF-9739-41AF-824F-398671BFD383}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ECBF1AF-9739-41AF-824F-398671BFD383}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ECBF1AF-9739-41AF-824F-398671BFD383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2951A307-E481-49B8-BFCA-7A31F8C161DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2951A307-E481-49B8-BFCA-7A31F8C161DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2951A307-E481-49B8-BFCA-7A31F8C161DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2951A307-E481-49B8-BFCA-7A31F8C161DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

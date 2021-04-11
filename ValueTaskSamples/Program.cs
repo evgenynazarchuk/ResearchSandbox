@@ -17,14 +17,14 @@ namespace ValueTaskSamples
             var valueTasks = new Task[k];
             var tasks = new Task[k];
 
-            for (int i = 0; i < k; i++)
+            for (var i = 0; i < k; i++)
             {
                 valueTasks[i] = GenerateSimpleAsyncValueTask(l, m);
                 tasks[i] = GenerateSimpleAsyncTask(l, m);
                 Console.WriteLine("--------------");
             }
 
-            for (int i = 0; i < k; i++)
+            for (var i = 0; i < k; i++)
             {
                 valueTasks[i].Wait();
                 tasks[i].Wait();
