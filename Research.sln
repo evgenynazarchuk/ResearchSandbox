@@ -27,9 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValueTaskSamples", "ValueTa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReturnTaskWithoutAwait", "ReturnTaskWithoutAwait\ReturnTaskWithoutAwait.csproj", "{2951A307-E481-49B8-BFCA-7A31F8C161DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneOf", "OneOf\OneOf.csproj", "{F9B5CE91-1DC9-4ED9-B9DC-8CAEFE49055A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneOf", "OneOf\OneOf.csproj", "{F9B5CE91-1DC9-4ED9-B9DC-8CAEFE49055A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomTimer", "RandomTimer\RandomTimer.csproj", "{4AA36C69-968C-4DF7-B473-CB9097492FBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomTimer", "RandomTimer\RandomTimer.csproj", "{4AA36C69-968C-4DF7-B473-CB9097492FBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomGauss", "RandomGauss\RandomGauss.csproj", "{3C395812-BCD7-45AA-A273-2D70BDFEA824}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distribution", "Distribution\Distribution.csproj", "{E15B9CCB-420D-454E-BE2A-CA6621315F69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +97,14 @@ Global
 		{4AA36C69-968C-4DF7-B473-CB9097492FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AA36C69-968C-4DF7-B473-CB9097492FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AA36C69-968C-4DF7-B473-CB9097492FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C395812-BCD7-45AA-A273-2D70BDFEA824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C395812-BCD7-45AA-A273-2D70BDFEA824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C395812-BCD7-45AA-A273-2D70BDFEA824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C395812-BCD7-45AA-A273-2D70BDFEA824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E15B9CCB-420D-454E-BE2A-CA6621315F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E15B9CCB-420D-454E-BE2A-CA6621315F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E15B9CCB-420D-454E-BE2A-CA6621315F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E15B9CCB-420D-454E-BE2A-CA6621315F69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

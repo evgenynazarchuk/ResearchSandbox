@@ -7,17 +7,15 @@ using System.Text;
 
 namespace RandomTimer
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             for (var i = 0; i < 10; i++)
             {
                 Trace(() => Wait(3.Seconds()));
                 Trace(() => WaitMaximum(5.Seconds()));
                 Trace(() => WaitMinimum(3.Seconds(), 7.Seconds()));
-                Trace(() => WaitToRun(3.Seconds(), () => { }));
-                Trace(() => WaitToRun(3.Seconds(), 7.Seconds(), () => { }));
                 Console.WriteLine($"-----------------");
             }
         }
@@ -33,6 +31,21 @@ namespace RandomTimer
 
         public static void Wait(TimeSpan time) => Task.Delay(time).GetAwaiter().GetResult();
 
+        public static void Wait(params Task[] tasks) => Task.WaitAll(tasks);
+
+        public static void Wait(Task[,] tasks)
+        {
+            ;
+        }
+
+        public static void Wait(Task[][] tasks)
+        {
+            for (var i = 0; i < tasks.Length; i++)
+            {
+                Task.WaitAll(tasks[i]);
+            }
+        }
+
         public static void WaitMaximum(TimeSpan maximumTime)
         {
             var random = new Random();
@@ -45,18 +58,6 @@ namespace RandomTimer
             var random = new Random();
             var wait = random.Next((int)minimumTime.TotalMilliseconds, (int)maximumTime.TotalMilliseconds);
             Task.Delay(wait).GetAwaiter().GetResult();
-        }
-
-        public static void WaitToRun(TimeSpan maximumTime, Action action)
-        {
-            WaitMaximum(maximumTime);
-            action();
-        }
-
-        public static void WaitToRun(TimeSpan minimumTime, TimeSpan  maximum, Action action)
-        {
-            WaitMinimum(minimumTime, maximum);
-            action();
         }
     }
 
