@@ -20,21 +20,21 @@ namespace Distribution
                 seconds -= 1;
             }
 
-            var countActiveUsers = new int[seconds];
-            var numberOfAscendingSteps = seconds / 2;
-            var increment = users / (numberOfAscendingSteps);
-            var countUsers = increment;
+            var countActiveUsersPerSecond = new int[seconds];
+            var numberOfAscendingStepsPerSecond = seconds / 2;
+            var increment = users / (numberOfAscendingStepsPerSecond);
+            var needUsersForCurrentSecond = increment;
 
-            for (var i = 0; i < countActiveUsers.Length / 2; i++)
+            for (var i = 0; i < countActiveUsersPerSecond.Length / 2; i++)
             {
-                countActiveUsers[i] = countUsers;
-                countActiveUsers[i + numberOfAscendingSteps] = users - countUsers;
-                countUsers += increment;
+                countActiveUsersPerSecond[i] = needUsersForCurrentSecond;
+                countActiveUsersPerSecond[i + numberOfAscendingStepsPerSecond] = users - needUsersForCurrentSecond;
+                needUsersForCurrentSecond += increment;
             }
 
-            for (var i = 0; i < countActiveUsers.Length; i++)
+            for (var i = 0; i < countActiveUsersPerSecond.Length; i++)
             {
-                Console.Write($"{countActiveUsers[i]} ");
+                Console.Write($"{countActiveUsersPerSecond[i]} ");
             }
             Console.WriteLine();
         }
