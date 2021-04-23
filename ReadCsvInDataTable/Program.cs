@@ -11,7 +11,7 @@ namespace ReadCsvInDataTable
         static void Main(string[] args)
         {
             using var streamReader = new StreamReader("data.csv", Encoding.UTF8, true, 65535);
-            Regex parser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.Compiled);
+            var parser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.Compiled);
             string line;
             List<Info> rows = new();
 
