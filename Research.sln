@@ -39,9 +39,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalyticsBalancer", "Analyt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetNumFromEnumerableWithTask", "GetNumFromEnumerableWithTask\GetNumFromEnumerableWithTask.csproj", "{AD3AAE79-D144-40DF-8635-1A58BC326BC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceWriteToFile", "PerformanceWriteToFile\PerformanceWriteToFile.csproj", "{985DA781-E649-4A5F-BAD6-BBB53768F9F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformanceWriteToFile", "PerformanceWriteToFile\PerformanceWriteToFile.csproj", "{985DA781-E649-4A5F-BAD6-BBB53768F9F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceReadFile", "PerformanceReadFile\PerformanceReadFile.csproj", "{4A2FD1F7-B53A-476A-B770-BAE7FD73EA74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformanceReadFile", "PerformanceReadFile\PerformanceReadFile.csproj", "{4A2FD1F7-B53A-476A-B770-BAE7FD73EA74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadJsonFile", "ReadJsonFile\ReadJsonFile.csproj", "{7863B0E1-3A58-4D64-A1CE-458929DD3C7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -129,6 +131,10 @@ Global
 		{4A2FD1F7-B53A-476A-B770-BAE7FD73EA74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A2FD1F7-B53A-476A-B770-BAE7FD73EA74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A2FD1F7-B53A-476A-B770-BAE7FD73EA74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7863B0E1-3A58-4D64-A1CE-458929DD3C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7863B0E1-3A58-4D64-A1CE-458929DD3C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7863B0E1-3A58-4D64-A1CE-458929DD3C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7863B0E1-3A58-4D64-A1CE-458929DD3C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
