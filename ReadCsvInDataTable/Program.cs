@@ -24,6 +24,7 @@ namespace ReadCsvInDataTable
             }
             foreach (var info in rows)
             {
+                Console.OutputEncoding = Encoding.UTF8;
                 Console.WriteLine(info.City + " " + info.Number);
             }
         }
