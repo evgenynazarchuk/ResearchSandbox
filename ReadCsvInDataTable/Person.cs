@@ -2,18 +2,11 @@
 
 namespace CsvReader
 {
-    public class Person : CsvModel
+    public class Person : CsvAutoMapperModel
     {
         public int? Id { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
-
-        public override void InitializationFromRow(ReadOnlySpan<string> row)
-        {
-            this.Id = IntegerIsNotRequired(row[0]);
-            this.FirstName = row[1];
-            this.LastName = row[2];
-        }
 
         // Not required
         public override string ToString()
