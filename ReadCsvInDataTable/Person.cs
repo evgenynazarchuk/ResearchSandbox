@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CsvReader
+﻿namespace CsvReader
 {
     public class Person : CsvAutoMapperModel
     {
