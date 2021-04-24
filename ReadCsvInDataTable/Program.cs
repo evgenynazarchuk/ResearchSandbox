@@ -15,17 +15,15 @@ namespace CsvReader
             var locationReader = new CsvReader<Location>("location.csv");
 
             Console.WriteLine("Persons:");
-            Person person;
-            while ((person = personReader.GetNextObject()) != null)
+            foreach (var person in personReader)
             {
-                Console.WriteLine(person);
+                Console.WriteLine($"{person.Id} {person.FirstName} {person.LastName}");
             }
 
             Console.WriteLine("\nLocations:");
-            Location location;
-            while ((location = locationReader.GetNextObject()) != null)
+            foreach (var location in locationReader)
             {
-                Console.WriteLine(location);
+                Console.WriteLine($"{location.Id} {location.Name}");
             }
         }
     }

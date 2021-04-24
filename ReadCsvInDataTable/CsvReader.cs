@@ -2,10 +2,12 @@
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace CsvReader
 {
-    public class CsvReader<ResultType>
+    public class CsvReader<ResultType> : IEnumerable<ResultType>
         where ResultType: CsvModel, new()
     {
         protected StreamReader Reader { get; private set; }
@@ -24,7 +26,7 @@ namespace CsvReader
             }
         }
 
-        public ReadOnlySpan<string> GetNextRow()
+        protected ReadOnlySpan<string> GetNextRow()
         {
             string[] row = null;
             this._line = this.Reader.ReadLine();
@@ -49,6 +51,20 @@ namespace CsvReader
             }
 
             return default;
+        }
+
+        public IEnumerator<ResultType> GetEnumerator()
+        {
+            ResultType resultType;
+            while ((resultType = this.GetNextObject()) != null)
+            {
+                yield return resultType;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
