@@ -8,7 +8,7 @@ namespace JsonReader
         where ResultType : class, new()
     {
         protected StreamReader Reader { get; private set; }
-        protected JsonSerializerOptions JsonSerializerOptions { get; set; }
+        public JsonSerializerOptions JsonSerializerOptions { get; set; }
 
         public JsonReader(string path)
         {
