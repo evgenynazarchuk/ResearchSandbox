@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CsvReader
 {
-    public class CsvConverterException : Exception
+    public class CsvModelException : Exception
     {
-        public CsvConverterException(string message) : base(message)
+        public CsvModelException(string message) : base(message)
         {
         }
     }

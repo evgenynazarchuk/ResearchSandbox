@@ -11,7 +11,7 @@ namespace CsvReader
 
             if (row.Length != properties.Length)
             {
-                throw new ApplicationException("Row length is not equal properties length");
+                throw new CsvAutoMapperModelException("Row length is not equal properties length");
             }
 
             for (var i = 0; i < properties.Length; i++)
@@ -134,7 +134,7 @@ namespace CsvReader
                 }
 
                 //
-                else new ApplicationException("Unknow Type");
+                else new CsvAutoMapperModelException("Unknow Type");
             }
         }
     }
