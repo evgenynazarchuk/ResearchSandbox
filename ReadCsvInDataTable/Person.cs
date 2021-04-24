@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReadCsvInDataTable
 {
@@ -19,6 +15,7 @@ namespace ReadCsvInDataTable
             this.LastName = row[2];
         }
 
+        // Not required
         public override string ToString()
         {
             return $"{this.Id} {this.FirstName} {this.LastName}";

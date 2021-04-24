@@ -14,21 +14,15 @@ namespace ReadJsonFile
 
         public static void ReadJson()
         {
-            const string path = "LocationJsonFile.json";
-            var stream = new StreamReader(path);
-            string line;
+            const string path = "location.json";
+            var jsonReader = new JsonReader<Location>(path);
+            Location location;
 
-            while ((line = stream.ReadLine()) != null)
+            Console.OutputEncoding = Encoding.UTF8;
+            while ((location = jsonReader.GetNextObject()) != null)
             {
-                var opt = new JsonSerializerOptions();
-                opt.PropertyNameCaseInsensitive = true; // не учитываем регистр атрибутов
-
-                var obj = JsonSerializer.Deserialize<LocationDto>(line, opt);
-                Console.OutputEncoding = Encoding.UTF8;
-                Console.WriteLine(obj);
+                Console.WriteLine(location);
             }
-
-            stream.Close();
         }
     }
 }

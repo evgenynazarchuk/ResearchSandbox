@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReadJsonFile
 {
-    public class LocationDto
+    public class Location
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,7 +14,7 @@ namespace ReadJsonFile
 
         public override string ToString()
         {
-            return $"{Id}" + " " + Name + " " + NameLocal;
+            return $"{Id} {Name} {NameLocal}";
         }
     }
 }

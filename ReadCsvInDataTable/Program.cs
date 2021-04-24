@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Text;
 
 namespace ReadCsvInDataTable
 {
@@ -10,9 +6,13 @@ namespace ReadCsvInDataTable
     {
         static void Main()
         {
+            ReadCsv();
+        }
+
+        public static void ReadCsv()
+        {
             var personReader = new CsvReader<Person>("person.csv");
             var locationReader = new CsvReader<Location>("location.csv");
-
 
             Console.WriteLine("Persons:");
             Person person;
@@ -26,7 +26,7 @@ namespace ReadCsvInDataTable
             while ((location = locationReader.GetNextObject()) != null)
             {
                 Console.WriteLine(location);
-            }    
+            }
         }
     }
 }

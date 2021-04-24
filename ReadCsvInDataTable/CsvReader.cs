@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 
 namespace ReadCsvInDataTable
 {
-    public class CsvReader<TType>
-        where TType: CsvModel, new()
+    public class CsvReader<ResultType>
+        where ResultType: CsvModel, new()
     {
         protected StreamReader Reader { get; private set; }
         protected Regex Parser { get; private set; }
@@ -40,18 +37,18 @@ namespace ReadCsvInDataTable
             return row;
         }
 
-        public TType GetNextObject()
+        public ResultType GetNextObject()
         {
             var row = this.GetNextRow();
 
             if (row != null)
             {
-                var instance = new TType();
+                var instance = new ResultType();
                 instance.InitializationFromRow(row);
                 return instance;
             }
 
-            return default(TType);
+            return default;
         }
     }
 }

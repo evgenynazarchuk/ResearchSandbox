@@ -17,6 +17,7 @@ namespace ReadCsvInDataTable
             this.Name = row[1];
         }
 
+        // Not required
         public override string ToString()
         {
             return $"{this.Id}\t{this.Name}";
