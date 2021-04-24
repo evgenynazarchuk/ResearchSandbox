@@ -30,6 +30,30 @@ namespace CsvReader
             }
         }
 
+        public static uint UnsignedIntegerIsRequired(ReadOnlySpan<char> row)
+        {
+            if (uint.TryParse(row, out uint result))
+            {
+                return result;
+            }
+            else
+            {
+                throw new ApplicationException("Unsigned Integer field is required");
+            }
+        }
+
+        public static uint? UnsignedIntegerIsNotRequired(ReadOnlySpan<char> row)
+        {
+            if (uint.TryParse(row, out uint result))
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static long LongIntegerIsRequired(ReadOnlySpan<char> row)
         {
             if (long.TryParse(row, out long result))
@@ -45,6 +69,30 @@ namespace CsvReader
         public static long? LongIntegerIsNotRequired(ReadOnlySpan<char> row)
         {
             if (long.TryParse(row, out long result))
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static ulong UnsignedLongIntegerIsRequired(ReadOnlySpan<char> row)
+        {
+            if (ulong.TryParse(row, out ulong result))
+            {
+                return result;
+            }
+            else
+            {
+                throw new ApplicationException("Long Integer field is required");
+            }
+        }
+
+        public static ulong? UnsignedLongIntegerIsNotRequired(ReadOnlySpan<char> row)
+        {
+            if (ulong.TryParse(row, out ulong result))
             {
                 return result;
             }

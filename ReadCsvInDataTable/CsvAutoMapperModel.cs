@@ -35,6 +35,17 @@ namespace CsvReader
                 }
 
                 //
+                else if (propertyType == typeof(uint))
+                {
+                    properties[i].SetValue(this, UnsignedIntegerIsRequired(row[i]), null);
+                }
+
+                else if (propertyType == typeof(uint?))
+                {
+                    properties[i].SetValue(this, UnsignedIntegerIsNotRequired(row[i]), null);
+                }
+
+                //
                 else if (propertyType == typeof(long))
                 {
                     properties[i].SetValue(this, LongIntegerIsRequired(row[i]), null);
@@ -43,6 +54,17 @@ namespace CsvReader
                 else if (propertyType == typeof(long?))
                 {
                     properties[i].SetValue(this, LongIntegerIsNotRequired(row[i]), null);
+                }
+
+                //
+                else if (propertyType == typeof(ulong))
+                {
+                    properties[i].SetValue(this, UnsignedLongIntegerIsRequired(row[i]), null);
+                }
+
+                else if (propertyType == typeof(ulong?))
+                {
+                    properties[i].SetValue(this, UnsignedLongIntegerIsNotRequired(row[i]), null);
                 }
 
                 //
