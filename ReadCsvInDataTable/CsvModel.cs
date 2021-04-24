@@ -126,7 +126,7 @@ namespace CsvReader
             }
         }
 
-        public static bool BoolenIsRequered(ReadOnlySpan<char> row)
+        public static bool BooleanIsRequered(ReadOnlySpan<char> row)
         {
             if (bool.TryParse(row, out bool result))
             {

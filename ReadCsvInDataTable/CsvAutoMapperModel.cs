@@ -79,6 +79,17 @@ namespace CsvReader
                 }
 
                 //
+                else if (propertyType == typeof(bool))
+                {
+                    properties[i].SetValue(this, BooleanIsRequered(row[i]), null);
+                }
+
+                else if (propertyType == typeof(bool?))
+                {
+                    properties[i].SetValue(this, BooleanIsNotRequired(row[i]), null);
+                }
+
+                //
                 else if (propertyType == typeof(DateTime))
                 {
                     properties[i].SetValue(this, DateTimeIsRequered(row[i]), null);
