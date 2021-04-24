@@ -15,11 +15,11 @@ namespace ReportWriter
         public void Write(string msg)
         {
             this._writer.WriteLine(msg);
-            this._writer.Flush();
         }
 
         public void Dispose()
         {
+            this._writer.Flush();
             this._writer.Close();
         }
     }
