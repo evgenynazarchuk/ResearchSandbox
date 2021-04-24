@@ -1,4 +1,4 @@
-﻿namespace ReadJsonFile
+﻿namespace JsonReader
 {
     public class Location
     {

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncAwaitException", "Asyn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountUsersForPeriod", "CountUserForPeriod\CountUsersForPeriod.csproj", "{8E3ACD81-613D-4A39-9E54-F23B476A3869}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadCsvFile", "ReadCsvInDataTable\ReadCsvFile.csproj", "{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvReader", "ReadCsvInDataTable\CsvReader.csproj", "{BCCBF1A4-8DFA-4DE9-ADDA-41C68257FDE8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskMatrixWithWait", "TaskMatrixWithWait\TaskMatrixWithWait.csproj", "{250878AC-E2EB-406F-A6D7-67907482481C}"
 EndProject
@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformanceWriteToFile", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformanceReadFile", "PerformanceReadFile\PerformanceReadFile.csproj", "{4A2FD1F7-B53A-476A-B770-BAE7FD73EA74}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadJsonFile", "ReadJsonFile\ReadJsonFile.csproj", "{7863B0E1-3A58-4D64-A1CE-458929DD3C7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonReader", "ReadJsonFile\JsonReader.csproj", "{7863B0E1-3A58-4D64-A1CE-458929DD3C7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

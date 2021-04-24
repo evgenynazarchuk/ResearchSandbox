@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.Json;
 
-namespace ReadJsonFile
+namespace JsonReader
 {
     public class JsonReader<ResultType>
         where ResultType : class, new()

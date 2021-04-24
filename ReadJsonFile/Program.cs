@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace ReadJsonFile
+namespace JsonReader
 {
     class Program
     {

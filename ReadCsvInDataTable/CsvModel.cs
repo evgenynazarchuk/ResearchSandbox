@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ReadCsvInDataTable
+namespace CsvReader
 {
     public abstract class CsvModel
     {

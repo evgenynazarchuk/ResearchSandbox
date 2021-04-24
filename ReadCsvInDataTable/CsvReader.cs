@@ -3,7 +3,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace ReadCsvInDataTable
+namespace CsvReader
 {
     public class CsvReader<ResultType>
         where ResultType: CsvModel, new()
