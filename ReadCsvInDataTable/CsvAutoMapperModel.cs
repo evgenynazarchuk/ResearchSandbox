@@ -134,7 +134,7 @@ namespace CsvReader
                 }
 
                 //
-                else new CsvAutoMapperModelException("Unknow Type");
+                else throw new CsvAutoMapperModelException("Unknow Type");
             }
         }
     }
