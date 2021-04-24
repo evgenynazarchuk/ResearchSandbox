@@ -6,7 +6,7 @@ namespace ReadCsvInDataTable
     {
         public abstract void InitializationFromRow(ReadOnlySpan<string> row);
 
-        public int IntegerIsRequired(string row)
+        public static int IntegerIsRequired(ReadOnlySpan<char> row)
         {
             if (int.TryParse(row, out int result))
             {
@@ -18,7 +18,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public int? IntegerIsNotRequired(string row)
+        public static int? IntegerIsNotRequired(ReadOnlySpan<char> row)
         {
             if (int.TryParse(row, out int result))
             {
@@ -30,7 +30,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public long LongIntegerIsRequired(string row)
+        public static long LongIntegerIsRequired(ReadOnlySpan<char> row)
         {
             if (long.TryParse(row, out long result))
             {
@@ -42,7 +42,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public long? LongIntegerIsNotRequired(string row)
+        public static long? LongIntegerIsNotRequired(ReadOnlySpan<char> row)
         {
             if (long.TryParse(row, out long result))
             {
@@ -54,7 +54,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public float FloatIsRequired(string row)
+        public static float FloatIsRequired(ReadOnlySpan<char> row)
         {
             if (float.TryParse(row, out float result))
             {
@@ -66,7 +66,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public float? FloatIsNotRequired(string row)
+        public static float? FloatIsNotRequired(ReadOnlySpan<char> row)
         {
             if (float.TryParse(row, out float result))
             {
@@ -78,7 +78,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public double DoubleIsRequired(string row)
+        public static double DoubleIsRequired(ReadOnlySpan<char> row)
         {
             if (double.TryParse(row, out double result))
             {
@@ -90,7 +90,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public double? DoubleIsNotRequired(string row)
+        public static double? DoubleIsNotRequired(ReadOnlySpan<char> row)
         {
             if (double.TryParse(row, out double result))
             {
@@ -102,7 +102,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public decimal DecimalIsRequired(string row)
+        public static decimal DecimalIsRequired(ReadOnlySpan<char> row)
         {
             if (decimal.TryParse(row, out decimal result))
             {
@@ -114,7 +114,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public decimal? DecimalIsNotRequired(string row)
+        public static decimal? DecimalIsNotRequired(ReadOnlySpan<char> row)
         {
             if (decimal.TryParse(row, out decimal result))
             {
@@ -126,7 +126,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public bool BoolenIsRequered(string row)
+        public static bool BoolenIsRequered(ReadOnlySpan<char> row)
         {
             if (bool.TryParse(row, out bool result))
             {
@@ -138,7 +138,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public bool? BooleanIsNotRequired(string row)
+        public static bool? BooleanIsNotRequired(ReadOnlySpan<char> row)
         {
             if (bool.TryParse(row, out bool result))
             {
@@ -150,7 +150,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public DateTime DateTimeIsRequered(string row)
+        public static DateTime DateTimeIsRequered(ReadOnlySpan<char> row)
         {
             if (DateTime.TryParse(row, out DateTime result))
             {
@@ -162,9 +162,33 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public DateTime? DateTimeIsNotRequired(string row)
+        public static DateTime? DateTimeIsNotRequired(ReadOnlySpan<char> row)
         {
             if (DateTime.TryParse(row, out DateTime result))
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static TimeSpan TimeSpanIsRequered(ReadOnlySpan<char> row)
+        {
+            if (TimeSpan.TryParse(row, out TimeSpan result))
+            {
+                return result;
+            }
+            else
+            {
+                throw new ApplicationException("DateTime field is required");
+            }
+        }
+
+        public static TimeSpan? TimeSpanIsNotRequired(ReadOnlySpan<char> row)
+        {
+            if (TimeSpan.TryParse(row, out TimeSpan result))
             {
                 return result;
             }
