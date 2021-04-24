@@ -7,75 +7,75 @@ namespace CsvReader
         public abstract void InitializeFromRow(ReadOnlySpan<string> row);
 
         //
-        public static int IntegerIsRequired(ReadOnlySpan<char> row)
-            => int.TryParse(row, out int result) ? result 
+        public static int IntegerIsRequired(ReadOnlySpan<char> column)
+            => int.TryParse(column, out int columnValue) ? columnValue 
             : throw new CsvModelException("Integer field is required");
 
-        public static uint UnsignedIntegerIsRequired(ReadOnlySpan<char> row)
-            => uint.TryParse(row, out uint result) ? result 
+        public static uint UnsignedIntegerIsRequired(ReadOnlySpan<char> column)
+            => uint.TryParse(column, out uint columnValue) ? columnValue 
             : throw new CsvModelException("Unsigned Integer field is required");
 
-        public static long LongIntegerIsRequired(ReadOnlySpan<char> row)
-            => long.TryParse(row, out long result) ? result 
+        public static long LongIntegerIsRequired(ReadOnlySpan<char> column)
+            => long.TryParse(column, out long columnValue) ? columnValue 
             : throw new CsvModelException("Long Integer field is required");
 
-        public static ulong UnsignedLongIntegerIsRequired(ReadOnlySpan<char> row)
-            => ulong.TryParse(row, out ulong result) ? result 
+        public static ulong UnsignedLongIntegerIsRequired(ReadOnlySpan<char> column)
+            => ulong.TryParse(column, out ulong columnValue) ? columnValue 
             : throw new CsvModelException("Long Integer field is required");
 
-        public static float FloatIsRequired(ReadOnlySpan<char> row)
-            => float.TryParse(row, out float result) ? result 
+        public static float FloatIsRequired(ReadOnlySpan<char> column)
+            => float.TryParse(column, out float columnValue) ? columnValue 
             : throw new CsvModelException("Float field is required");
         
-        public static double DoubleIsRequired(ReadOnlySpan<char> row)
-            => double.TryParse(row, out double result) ? result
+        public static double DoubleIsRequired(ReadOnlySpan<char> column)
+            => double.TryParse(column, out double columnValue) ? columnValue
             : throw new CsvModelException("Double field is required");
         
-        public static decimal DecimalIsRequired(ReadOnlySpan<char> row)
-            => decimal.TryParse(row, out decimal result) ? result
+        public static decimal DecimalIsRequired(ReadOnlySpan<char> column)
+            => decimal.TryParse(column, out decimal columnValue) ? columnValue
             : throw new CsvModelException("Decimal field is required");
 
-        public static bool BooleanIsRequered(ReadOnlySpan<char> row)
-            => bool.TryParse(row, out bool result) ? result
+        public static bool BooleanIsRequered(ReadOnlySpan<char> column)
+            => bool.TryParse(column, out bool columnValue) ? columnValue
             : throw new CsvModelException("Boolean field is required");
 
-        public static DateTime DateTimeIsRequered(ReadOnlySpan<char> row)
-            => DateTime.TryParse(row, out DateTime result) ? result
+        public static DateTime DateTimeIsRequered(ReadOnlySpan<char> column)
+            => DateTime.TryParse(column, out DateTime columnValue) ? columnValue
             : throw new CsvModelException("DateTime field is required");
 
-        public static TimeSpan TimeSpanIsRequered(ReadOnlySpan<char> row)
-            => TimeSpan.TryParse(row, out TimeSpan result) ? result
+        public static TimeSpan TimeSpanIsRequered(ReadOnlySpan<char> column)
+            => TimeSpan.TryParse(column, out TimeSpan columnValue) ? columnValue
             : throw new CsvModelException("DateTime field is required");
 
         //
-        public static int? IntegerIsNotRequired(ReadOnlySpan<char> row)
-            => int.TryParse(row, out int result) ? result : null;
+        public static int? IntegerIsNotRequired(ReadOnlySpan<char> column)
+            => int.TryParse(column, out int columnValue) ? columnValue : null;
 
-        public static uint? UnsignedIntegerIsNotRequired(ReadOnlySpan<char> row)
-            => uint.TryParse(row, out uint result) ? result : null;
+        public static uint? UnsignedIntegerIsNotRequired(ReadOnlySpan<char> column)
+            => uint.TryParse(column, out uint columnValue) ? columnValue : null;
 
-        public static long? LongIntegerIsNotRequired(ReadOnlySpan<char> row)
-            => long.TryParse(row, out long result) ? result : null;
+        public static long? LongIntegerIsNotRequired(ReadOnlySpan<char> column)
+            => long.TryParse(column, out long columnValue) ? columnValue : null;
 
-        public static ulong? UnsignedLongIntegerIsNotRequired(ReadOnlySpan<char> row)
-            => ulong.TryParse(row, out ulong result) ? result : null;
+        public static ulong? UnsignedLongIntegerIsNotRequired(ReadOnlySpan<char> column)
+            => ulong.TryParse(column, out ulong columnValue) ? columnValue : null;
 
-        public static float? FloatIsNotRequired(ReadOnlySpan<char> row)
-            => float.TryParse(row, out float result) ? result : null;
+        public static float? FloatIsNotRequired(ReadOnlySpan<char> column)
+            => float.TryParse(column, out float columnValue) ? columnValue : null;
 
-        public static double? DoubleIsNotRequired(ReadOnlySpan<char> row)
-            => double.TryParse(row, out double result) ? result : null;
+        public static double? DoubleIsNotRequired(ReadOnlySpan<char> column)
+            => double.TryParse(column, out double columnValue) ? columnValue : null;
 
-        public static decimal? DecimalIsNotRequired(ReadOnlySpan<char> row)
-            => decimal.TryParse(row, out decimal result) ? result : null;
+        public static decimal? DecimalIsNotRequired(ReadOnlySpan<char> column)
+            => decimal.TryParse(column, out decimal columnValue) ? columnValue : null;
 
-        public static bool? BooleanIsNotRequired(ReadOnlySpan<char> row)
-            => bool.TryParse(row, out bool result) ? result : null;
+        public static bool? BooleanIsNotRequired(ReadOnlySpan<char> column)
+            => bool.TryParse(column, out bool columnValue) ? columnValue : null;
 
-        public static DateTime? DateTimeIsNotRequired(ReadOnlySpan<char> row)
-            => DateTime.TryParse(row, out DateTime result) ? result : null;
+        public static DateTime? DateTimeIsNotRequired(ReadOnlySpan<char> column)
+            => DateTime.TryParse(column, out DateTime columnValue) ? columnValue : null;
 
-        public static TimeSpan? TimeSpanIsNotRequired(ReadOnlySpan<char> row)
-            => TimeSpan.TryParse(row, out TimeSpan result) ? result : null;
+        public static TimeSpan? TimeSpanIsNotRequired(ReadOnlySpan<char> column)
+            => TimeSpan.TryParse(column, out TimeSpan columnValue) ? columnValue : null;
     }
 }
