@@ -8,39 +8,25 @@ namespace ReadCsvInDataTable
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            using var streamReader = new StreamReader("data.csv", Encoding.UTF8, true, 65535);
-            var parser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.Compiled);
-            string line;
-            List<Info> rows = new();
+            var personReader = new CsvReader<Person>("person.csv");
+            var locationReader = new CsvReader<Location>("location.csv");
 
-            // skip header
-            streamReader.ReadLine();
 
-            while ((line = streamReader.ReadLine()) != null)
+            Console.WriteLine("Persons:");
+            Person person;
+            while ((person = personReader.GetNextObject()) != null)
             {
-                rows.Add(new(parser.Split(line)));
+                Console.WriteLine(person);
             }
-            foreach (var info in rows)
-            {
-                Console.OutputEncoding = Encoding.UTF8;
-                Console.WriteLine(info.City + " " + info.Number);
-            }
-        }
 
-        class Info
-        {
-            public Info(string[] row)
+            Console.WriteLine("\nLocations:");
+            Location location;
+            while ((location = locationReader.GetNextObject()) != null)
             {
-                City = row[0];
-                if (row[1] is not null && row[1] != "")
-                {
-                    Number = int.Parse(row[1]);
-                }
-            }
-            public string City;
-            public int? Number;
+                Console.WriteLine(location);
+            }    
         }
     }
 }
