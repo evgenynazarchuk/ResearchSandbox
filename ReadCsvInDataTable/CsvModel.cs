@@ -9,43 +9,43 @@ namespace CsvReader
         //
         public static int IntegerIsRequired(ReadOnlySpan<char> row)
             => int.TryParse(row, out int result) ? result 
-            : throw new ApplicationException("Integer field is required");
+            : throw new CsvConverterException("Integer field is required");
 
         public static uint UnsignedIntegerIsRequired(ReadOnlySpan<char> row)
             => uint.TryParse(row, out uint result) ? result 
-            : throw new ApplicationException("Unsigned Integer field is required");
+            : throw new CsvConverterException("Unsigned Integer field is required");
 
         public static long LongIntegerIsRequired(ReadOnlySpan<char> row)
             => long.TryParse(row, out long result) ? result 
-            : throw new ApplicationException("Long Integer field is required");
+            : throw new CsvConverterException("Long Integer field is required");
 
         public static ulong UnsignedLongIntegerIsRequired(ReadOnlySpan<char> row)
             => ulong.TryParse(row, out ulong result) ? result 
-            : throw new ApplicationException("Long Integer field is required");
+            : throw new CsvConverterException("Long Integer field is required");
 
         public static float FloatIsRequired(ReadOnlySpan<char> row)
             => float.TryParse(row, out float result) ? result 
-            : throw new ApplicationException("Float field is required");
+            : throw new CsvConverterException("Float field is required");
         
         public static double DoubleIsRequired(ReadOnlySpan<char> row)
             => double.TryParse(row, out double result) ? result
-            : throw new ApplicationException("Double field is required");
+            : throw new CsvConverterException("Double field is required");
         
         public static decimal DecimalIsRequired(ReadOnlySpan<char> row)
             => decimal.TryParse(row, out decimal result) ? result
-            : throw new ApplicationException("Decimal field is required");
+            : throw new CsvConverterException("Decimal field is required");
 
         public static bool BooleanIsRequered(ReadOnlySpan<char> row)
             => bool.TryParse(row, out bool result) ? result
-            : throw new ApplicationException("Boolean field is required");
+            : throw new CsvConverterException("Boolean field is required");
 
         public static DateTime DateTimeIsRequered(ReadOnlySpan<char> row)
             => DateTime.TryParse(row, out DateTime result) ? result
-            : throw new ApplicationException("DateTime field is required");
+            : throw new CsvConverterException("DateTime field is required");
 
         public static TimeSpan TimeSpanIsRequered(ReadOnlySpan<char> row)
             => TimeSpan.TryParse(row, out TimeSpan result) ? result
-            : throw new ApplicationException("DateTime field is required");
+            : throw new CsvConverterException("DateTime field is required");
 
         //
         public static int? IntegerIsNotRequired(ReadOnlySpan<char> row)
