@@ -12,7 +12,6 @@ namespace CsvReader
     {
         private readonly StreamReader _reader;
         private readonly Regex _parser;
-        private string _line;
 
         public CsvReader(
             string path, 
@@ -33,11 +32,11 @@ namespace CsvReader
         private ReadOnlySpan<string> GetNextRow()
         {
             string[] row = null;
-            this._line = this._reader.ReadLine();
+            var line = this._reader.ReadLine();
 
-            if (this._line != null)
+            if (line != null)
             {
-                row = this._parser.Split(this._line);
+                row = this._parser.Split(line);
             }
 
             return row;
