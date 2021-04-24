@@ -7,33 +7,37 @@ using System.Collections;
 
 namespace CsvReader
 {
-    public class CsvReader<ResultType> : IEnumerable<ResultType>
+    public sealed class CsvReader<ResultType> : IEnumerable<ResultType>
         where ResultType: CsvModel, new()
     {
-        protected StreamReader Reader { get; private set; }
-        protected Regex Parser { get; private set; }
+        private readonly StreamReader _reader;
+        private readonly Regex _parser;
         private string _line;
 
-        public CsvReader(string path, bool hasHeader = true)
+        public CsvReader(
+            string path, 
+            bool hasHeader = true, 
+            bool detectEncodingFromByteOrderMarks = true, 
+            int bufferSize = 65525
+            )
         {
-            // TODO: buffer value will need read from config (65535)
-            this.Reader = new StreamReader(path, Encoding.UTF8, true, 65535);
-            this.Parser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.Compiled);
+            this._reader = new StreamReader(path, Encoding.UTF8, detectEncodingFromByteOrderMarks, bufferSize);
+            this._parser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.Compiled);
 
             if (hasHeader)
             {
-                this.Reader.ReadLine();
+                this._reader.ReadLine();
             }
         }
 
-        protected ReadOnlySpan<string> GetNextRow()
+        private ReadOnlySpan<string> GetNextRow()
         {
             string[] row = null;
-            this._line = this.Reader.ReadLine();
+            this._line = this._reader.ReadLine();
 
             if (this._line != null)
             {
-                row = this.Parser.Split(this._line);
+                row = this._parser.Split(this._line);
             }
 
             return row;
