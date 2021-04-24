@@ -45,7 +45,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PerformanceReadFile", "Perf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonReader", "ReadJsonFile\JsonReader.csproj", "{7863B0E1-3A58-4D64-A1CE-458929DD3C7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionSamples", "ReflectionSamples\ReflectionSamples.csproj", "{C673D5FA-2EC7-4322-BC96-CEB9AD189EA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionSamples", "ReflectionSamples\ReflectionSamples.csproj", "{C673D5FA-2EC7-4322-BC96-CEB9AD189EA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportWriter", "ReportWriter\ReportWriter.csproj", "{5EDC1158-28D6-48E0-87E1-614BA074803D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -141,6 +143,10 @@ Global
 		{C673D5FA-2EC7-4322-BC96-CEB9AD189EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C673D5FA-2EC7-4322-BC96-CEB9AD189EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C673D5FA-2EC7-4322-BC96-CEB9AD189EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDC1158-28D6-48E0-87E1-614BA074803D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDC1158-28D6-48E0-87E1-614BA074803D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDC1158-28D6-48E0-87E1-614BA074803D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDC1158-28D6-48E0-87E1-614BA074803D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
