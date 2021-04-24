@@ -50,7 +50,7 @@ namespace CsvReader
             if (row != null)
             {
                 var instance = new ResultType();
-                instance.InitializationFromRow(row);
+                instance.InitializeFromRow(row);
                 return instance;
             }
 

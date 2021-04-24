@@ -4,7 +4,7 @@ namespace CsvReader
 {
     public abstract class CsvModel
     {
-        public abstract void InitializationFromRow(ReadOnlySpan<string> row);
+        public abstract void InitializeFromRow(ReadOnlySpan<string> row);
 
         //
         public static int IntegerIsRequired(ReadOnlySpan<char> row)

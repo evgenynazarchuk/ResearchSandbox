@@ -4,7 +4,7 @@ namespace CsvReader
 {
     public abstract class CsvAutoMapperModel : CsvModel
     {
-        public override void InitializationFromRow(ReadOnlySpan<string> row)
+        public override void InitializeFromRow(ReadOnlySpan<string> row)
         {
             var type = this.GetType();
             var properties = type.GetProperties();
