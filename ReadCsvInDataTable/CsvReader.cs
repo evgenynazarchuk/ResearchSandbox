@@ -46,7 +46,7 @@ namespace ReadCsvInDataTable
 
             if (row != null)
             {
-                var instance = (TType)Activator.CreateInstance(typeof(TType));
+                var instance = new TType();
                 instance.InitializationFromRow(row);
                 return instance;
             }
