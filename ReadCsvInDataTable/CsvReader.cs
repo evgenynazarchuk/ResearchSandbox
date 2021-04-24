@@ -27,7 +27,7 @@ namespace ReadCsvInDataTable
             }
         }
 
-        public string[] GetNextRow()
+        public ReadOnlySpan<string> GetNextRow()
         {
             string[] row = null;
             this._line = this.Reader.ReadLine();
@@ -47,7 +47,7 @@ namespace ReadCsvInDataTable
             if (row != null)
             {
                 var instance = (TType)Activator.CreateInstance(typeof(TType));
-                instance.InitFromRow(row);
+                instance.InitializationFromRow(row);
                 return instance;
             }
 

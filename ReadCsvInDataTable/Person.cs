@@ -12,7 +12,7 @@ namespace ReadCsvInDataTable
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
 
-        public override void InitFromRow(string[] row)
+        public override void InitializationFromRow(ReadOnlySpan<string> row)
         {
             this.Id = IntegerIsNotRequired(row[0]);
             this.FirstName = row[1];
