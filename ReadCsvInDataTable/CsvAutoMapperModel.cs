@@ -16,20 +16,12 @@ namespace CsvReader
 
             for (var i = 0; i < properties.Length; i++)
             {
-                var propertyType = properties[i].PropertyType;
+                var propertyTypeString = properties[i].PropertyType.ToString();
 
-                switch (propertyType.ToString())
+                switch (propertyTypeString)
                 {
                     case TypeString.String:
                         properties[i].SetValue(this, row[i], null);
-                        break;
-
-                    case TypeString.Boolean:
-                        properties[i].SetValue(this, BooleanIsRequired(row[i]), null);
-                        break;
-
-                    case TypeString.BooleanOrNull:
-                        properties[i].SetValue(this, BooleanIsNotRequired(row[i]), null);
                         break;
 
                     case TypeString.Integer:
@@ -38,6 +30,14 @@ namespace CsvReader
 
                     case TypeString.IntegerOrNull:
                         properties[i].SetValue(this, IntegerIsNotRequired(row[i]), null);
+                        break;
+
+                    case TypeString.Boolean:
+                        properties[i].SetValue(this, BooleanIsRequired(row[i]), null);
+                        break;
+
+                    case TypeString.BooleanOrNull:
+                        properties[i].SetValue(this, BooleanIsNotRequired(row[i]), null);
                         break;
 
                     case TypeString.UnsignedInteger:
@@ -107,124 +107,6 @@ namespace CsvReader
                     default:
                         throw new CsvAutoMapperModelException("Unknow Type");
                 }
-
-                //if (propertyType == typeof(string))
-                //{
-                //    properties[i].SetValue(this, row[i], null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(int))
-                //{
-                //    properties[i].SetValue(this, IntegerIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(int?))
-                //{
-                //    properties[i].SetValue(this, IntegerIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(uint))
-                //{
-                //    properties[i].SetValue(this, UnsignedIntegerIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(uint?))
-                //{
-                //    properties[i].SetValue(this, UnsignedIntegerIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(long))
-                //{
-                //    properties[i].SetValue(this, LongIntegerIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(long?))
-                //{
-                //    properties[i].SetValue(this, LongIntegerIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(ulong))
-                //{
-                //    properties[i].SetValue(this, UnsignedLongIntegerIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(ulong?))
-                //{
-                //    properties[i].SetValue(this, UnsignedLongIntegerIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(float))
-                //{
-                //    properties[i].SetValue(this, FloatIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(float?))
-                //{
-                //    properties[i].SetValue(this, FloatIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(double))
-                //{
-                //    properties[i].SetValue(this, DoubleIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(double?))
-                //{
-                //    properties[i].SetValue(this, DoubleIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(decimal))
-                //{
-                //    properties[i].SetValue(this, DecimalIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(decimal?))
-                //{
-                //    properties[i].SetValue(this, DecimalIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(bool))
-                //{
-                //    properties[i].SetValue(this, BooleanIsRequered(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(bool?))
-                //{
-                //    properties[i].SetValue(this, BooleanIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(DateTime))
-                //{
-                //    properties[i].SetValue(this, DateTimeIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(DateTime?))
-                //{
-                //    properties[i].SetValue(this, DateTimeIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else if (propertyType == typeof(TimeSpan))
-                //{
-                //    properties[i].SetValue(this, DateTimeIsRequired(row[i]), null);
-                //}
-                //
-                //else if (propertyType == typeof(TimeSpan?))
-                //{
-                //    properties[i].SetValue(this, DateTimeIsNotRequired(row[i]), null);
-                //}
-                //
-                ////
-                //else throw new CsvAutoMapperModelException("Unknow Type");
             }
         }
     }
