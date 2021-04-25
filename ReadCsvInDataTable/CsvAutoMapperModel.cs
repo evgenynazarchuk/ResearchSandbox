@@ -6,8 +6,7 @@ namespace CsvReader
     {
         public override void InitializeFromRow(ReadOnlySpan<string> columns)
         {
-            var type = this.GetType();
-            var properties = type.GetProperties();
+            var properties = this.GetType().GetProperties();
 
             if (columns.Length != properties.Length)
             {
