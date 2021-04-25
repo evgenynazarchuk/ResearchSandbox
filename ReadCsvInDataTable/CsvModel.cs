@@ -39,11 +39,11 @@ namespace CsvReader
             => bool.TryParse(column, out bool columnValue) ? columnValue
             : throw new CsvModelException("Boolean field is required");
 
-        public static DateTime DateTimeIsRequered(ReadOnlySpan<char> column)
+        public static DateTime DateTimeIsRequired(ReadOnlySpan<char> column)
             => DateTime.TryParse(column, out DateTime columnValue) ? columnValue
             : throw new CsvModelException("DateTime field is required");
 
-        public static TimeSpan TimeSpanIsRequered(ReadOnlySpan<char> column)
+        public static TimeSpan TimeSpanIsRequired(ReadOnlySpan<char> column)
             => TimeSpan.TryParse(column, out TimeSpan columnValue) ? columnValue
             : throw new CsvModelException("DateTime field is required");
 
