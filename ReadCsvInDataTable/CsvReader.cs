@@ -13,16 +13,36 @@ namespace CsvReader
         private readonly StreamReader _reader;
         private readonly Regex _parser;
 
+        private CsvReader()
+        {
+            this._parser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.Compiled);
+        }
+
         public CsvReader(
             string path, 
             bool hasHeader = true, 
             bool detectEncodingFromByteOrderMarks = true, 
             int bufferSize = 65525
             )
+            :this()
         {
             this._reader = new StreamReader(path, Encoding.UTF8, detectEncodingFromByteOrderMarks, bufferSize);
-            this._parser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.Compiled);
+            
 
+            if (hasHeader)
+            {
+                this._reader.ReadLine();
+            }
+        }
+
+        public CsvReader(
+            StreamReader streamReader,
+            bool hasHeader = false
+            )
+            :this()
+        {
+            this._reader = streamReader;
+            
             if (hasHeader)
             {
                 this._reader.ReadLine();
