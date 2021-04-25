@@ -24,6 +24,14 @@ namespace CsvReader
                         properties[i].SetValue(this, row[i], null);
                         break;
 
+                    case TypeString.Boolean:
+                        properties[i].SetValue(this, BooleanIsRequired(row[i]), null);
+                        break;
+
+                    case TypeString.BooleanOrNull:
+                        properties[i].SetValue(this, BooleanIsNotRequired(row[i]), null);
+                        break;
+
                     case TypeString.Integer:
                         properties[i].SetValue(this, IntegerIsRequired(row[i]), null);
                         break;

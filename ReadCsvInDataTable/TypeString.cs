@@ -21,5 +21,7 @@
         public const string DecimalOrNull = "System.Nullable`1[System.Decimal]";
         public const string DateTimeOrNull = "System.Nullable`1[System.DateTime]";
         public const string TimeSpanOrNull = "System.Nullable`1[System.TimeSpan]";
+        public const string Boolean = "System.Boolean";
+        public const string BooleanOrNull = "System.Nullable`1[System.Boolean]";
     }
 }

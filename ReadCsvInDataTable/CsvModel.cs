@@ -35,7 +35,7 @@ namespace CsvReader
             => decimal.TryParse(column, out decimal columnValue) ? columnValue
             : throw new CsvModelException("Decimal field is required");
 
-        public static bool BooleanIsRequered(ReadOnlySpan<char> column)
+        public static bool BooleanIsRequired(ReadOnlySpan<char> column)
             => bool.TryParse(column, out bool columnValue) ? columnValue
             : throw new CsvModelException("Boolean field is required");
 

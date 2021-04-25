@@ -17,3 +17,5 @@ System.Nullable`1[System.Double]
 System.Nullable`1[System.Decimal]
 System.Nullable`1[System.DateTime]
 System.Nullable`1[System.TimeSpan]
+System.Boolean
+System.Nullable`1[System.Boolean]

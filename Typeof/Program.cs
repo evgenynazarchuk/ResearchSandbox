@@ -7,6 +7,8 @@ namespace Typeof
         static void Main(string[] args)
         {
             Console.WriteLine($"{typeof(string)}");
+            Console.WriteLine($"{typeof(bool)}");
+            Console.WriteLine($"{typeof(bool?)}");
             Console.WriteLine($"{typeof(int)}");
             Console.WriteLine($"{typeof(uint)}");
             Console.WriteLine($"{typeof(long)}");
