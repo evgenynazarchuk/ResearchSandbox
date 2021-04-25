@@ -22,7 +22,7 @@ namespace CsvReader
 
         public static ulong UnsignedLongIntegerIsRequired(ReadOnlySpan<char> column)
             => ulong.TryParse(column, out ulong columnValue) ? columnValue 
-            : throw new CsvModelException("Long Integer field is required");
+            : throw new CsvModelException("Unsigned Long Integer field is required");
 
         public static float FloatIsRequired(ReadOnlySpan<char> column)
             => float.TryParse(column, out float columnValue) ? columnValue 
