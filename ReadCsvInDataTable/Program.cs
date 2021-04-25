@@ -30,7 +30,7 @@ namespace CsvReader
             Console.WriteLine("\nTestCsv:");
             foreach (var test in testCsv)
             {
-                Console.WriteLine($"{test.String}");
+                Console.WriteLine($"{test.String} {test.Decimal} {test.ULongNull}");
             }
         }
     }
