@@ -9,43 +9,43 @@ namespace CsvReader
         //
         public static int IntegerIsRequired(ReadOnlySpan<char> column)
             => int.TryParse(column, out int columnValue) ? columnValue 
-            : throw new CsvModelException("Integer field is required");
+            : throw new CsvModelException("Integer field is wrong");
 
         public static uint UnsignedIntegerIsRequired(ReadOnlySpan<char> column)
             => uint.TryParse(column, out uint columnValue) ? columnValue 
-            : throw new CsvModelException("Unsigned Integer field is required");
+            : throw new CsvModelException("Unsigned Integer field is wrong");
 
         public static long LongIntegerIsRequired(ReadOnlySpan<char> column)
             => long.TryParse(column, out long columnValue) ? columnValue 
-            : throw new CsvModelException("Long Integer field is required");
+            : throw new CsvModelException("Long Integer field is wrong");
 
         public static ulong UnsignedLongIntegerIsRequired(ReadOnlySpan<char> column)
             => ulong.TryParse(column, out ulong columnValue) ? columnValue 
-            : throw new CsvModelException("Unsigned Long Integer field is required");
+            : throw new CsvModelException("Unsigned Long Integer field is wrong");
 
         public static float FloatIsRequired(ReadOnlySpan<char> column)
             => float.TryParse(column, out float columnValue) ? columnValue 
-            : throw new CsvModelException("Float field is required");
+            : throw new CsvModelException("Float field is wrong");
 
         public static double DoubleIsRequired(ReadOnlySpan<char> column)
             => double.TryParse(column, out double columnValue) ? columnValue
-            : throw new CsvModelException("Double field is required");
+            : throw new CsvModelException("Double field is wrong");
 
         public static decimal DecimalIsRequired(ReadOnlySpan<char> column)
             => decimal.TryParse(column, out decimal columnValue) ? columnValue
-            : throw new CsvModelException("Decimal field is required");
+            : throw new CsvModelException("Decimal field is wrong");
 
         public static bool BooleanIsRequired(ReadOnlySpan<char> column)
             => bool.TryParse(column, out bool columnValue) ? columnValue
-            : throw new CsvModelException("Boolean field is required");
+            : throw new CsvModelException("Boolean field is wrong");
 
         public static DateTime DateTimeIsRequired(ReadOnlySpan<char> column)
             => DateTime.TryParse(column, out DateTime columnValue) ? columnValue
-            : throw new CsvModelException("DateTime field is required");
+            : throw new CsvModelException("DateTime field is wrong");
 
         public static TimeSpan TimeSpanIsRequired(ReadOnlySpan<char> column)
             => TimeSpan.TryParse(column, out TimeSpan columnValue) ? columnValue
-            : throw new CsvModelException("DateTime field is required");
+            : throw new CsvModelException("DateTime field is wrong");
 
         //
         public static int? IntegerIsNotRequired(ReadOnlySpan<char> column)
