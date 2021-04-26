@@ -101,64 +101,54 @@ namespace CsvReader
 
         public static double? DoubleIsNotRequired(ReadOnlySpan<char> column)
         {
+            if (column.Length > 0)
             {
-                if (column.Length > 0)
-                {
-                    return double.TryParse(column, out double columnValue) ? columnValue
-                        : throw new CsvModelException("Doouble must be double");
-                }
-                return null;
+                return double.TryParse(column, out double columnValue) ? columnValue
+                    : throw new CsvModelException("Doouble must be double");
             }
+            return null;
         }
 
         public static decimal? DecimalIsNotRequired(ReadOnlySpan<char> column)
         {
+            if (column.Length > 0)
             {
-                if (column.Length > 0)
-                {
-                    return decimal.TryParse(column, out decimal columnValue) ? columnValue
-                        : throw new CsvModelException("Decimal must be decimal");
-                }
-                return null;
+                return decimal.TryParse(column, out decimal columnValue) ? columnValue
+                    : throw new CsvModelException("Decimal must be decimal");
             }
+            return null;
         }
         
 
         public static bool? BooleanIsNotRequired(ReadOnlySpan<char> column)
         {
+            if (column.Length > 0)
             {
-                if (column.Length > 0)
-                {
-                    return bool.TryParse(column, out bool columnValue) ? columnValue
-                        : throw new CsvModelException("Boolean must be boolean (true/false)");
-                }
-                return null;
+                return bool.TryParse(column, out bool columnValue) ? columnValue
+                    : throw new CsvModelException("Boolean must be boolean (true/false)");
             }
+            return null;
         }
         
 
         public static DateTime? DateTimeIsNotRequired(ReadOnlySpan<char> column)
         {
+            if (column.Length > 0)
             {
-                if (column.Length > 0)
-                {
-                    return DateTime.TryParse(column, out DateTime columnValue) ? columnValue
-                        : throw new CsvModelException("DateTime must be datetime");
-                }
-                return null;
+                return DateTime.TryParse(column, out DateTime columnValue) ? columnValue
+                    : throw new CsvModelException("DateTime must be datetime");
             }
+            return null;
         }
 
         public static TimeSpan? TimeSpanIsNotRequired(ReadOnlySpan<char> column)
         {
+            if (column.Length > 0)
             {
-                if (column.Length > 0)
-                {
-                    return TimeSpan.TryParse(column, out TimeSpan columnValue) ? columnValue
-                        : throw new CsvModelException("DateTime must be datetime");
-                }
-                return null;
+                return TimeSpan.TryParse(column, out TimeSpan columnValue) ? columnValue
+                    : throw new CsvModelException("DateTime must be datetime");
             }
+            return null;
         }
     }
 }
