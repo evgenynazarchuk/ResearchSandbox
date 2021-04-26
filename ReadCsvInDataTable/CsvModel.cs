@@ -63,7 +63,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return uint.TryParse(column, out uint columnValue) ? columnValue
+                return uint.TryParse(column, out uint columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("Unsigned Integer must be unsigned integer");
             }
             return null;
@@ -73,7 +74,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return long.TryParse(column, out long columnValue) ? columnValue
+                return long.TryParse(column, out long columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("Long Integer must be long integer");
             }
             return null;
@@ -83,7 +85,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return ulong.TryParse(column, out ulong columnValue) ? columnValue
+                return ulong.TryParse(column, out ulong columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("Unsigned Long Integer must be unsigned long integer");
             }
             return null;
@@ -93,7 +96,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return float.TryParse(column, out float columnValue) ? columnValue
+                return float.TryParse(column, out float columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("Float must be float");
             }
             return null;
@@ -103,7 +107,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return double.TryParse(column, out double columnValue) ? columnValue
+                return double.TryParse(column, out double columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("Doouble must be double");
             }
             return null;
@@ -113,7 +118,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return decimal.TryParse(column, out decimal columnValue) ? columnValue
+                return decimal.TryParse(column, out decimal columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("Decimal must be decimal");
             }
             return null;
@@ -124,7 +130,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return bool.TryParse(column, out bool columnValue) ? columnValue
+                return bool.TryParse(column, out bool columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("Boolean must be boolean (true/false)");
             }
             return null;
@@ -135,7 +142,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return DateTime.TryParse(column, out DateTime columnValue) ? columnValue
+                return DateTime.TryParse(column, out DateTime columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("DateTime must be datetime");
             }
             return null;
@@ -145,7 +153,8 @@ namespace CsvReader
         {
             if (column.Length > 0)
             {
-                return TimeSpan.TryParse(column, out TimeSpan columnValue) ? columnValue
+                return TimeSpan.TryParse(column, out TimeSpan columnValue) 
+                    ? columnValue
                     : throw new CsvModelException("DateTime must be datetime");
             }
             return null;
