@@ -49,33 +49,33 @@ namespace CsvReader
 
         //
         public static int? IntegerIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? IntegerIsRequired(column) : null;
+            => column.Length == 0 ? null : IntegerIsRequired(column);
 
         public static uint? UnsignedIntegerIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? UnsignedIntegerIsRequired(column) : null;
+            => column.Length == 0 ? null : UnsignedIntegerIsRequired(column);
 
         public static long? LongIntegerIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? LongIntegerIsRequired(column) : null;
+            => column.Length == 0 ? null : LongIntegerIsRequired(column);
 
         public static ulong? UnsignedLongIntegerIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? UnsignedLongIntegerIsRequired(column) : null;
+            => column.Length == 0 ? null : UnsignedLongIntegerIsRequired(column);
 
         public static float? FloatIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? FloatIsRequired(column) : null;
+            => column.Length == 0 ? null : FloatIsRequired(column);
 
         public static double? DoubleIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? DoubleIsRequired(column) : null;
+            => column.Length == 0 ? null : DoubleIsRequired(column);
 
         public static decimal? DecimalIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? DecimalIsRequired(column) : null;
+            => column.Length == 0 ? null : DecimalIsRequired(column);
 
         public static bool? BooleanIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? BooleanIsRequired(column) : null;
+            => column.Length == 0 ? null : BooleanIsRequired(column);
 
         public static DateTime? DateTimeIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? DateTimeIsRequired(column) : null;
+            => column.Length == 0 ? null : DateTimeIsRequired(column);
 
         public static TimeSpan? TimeSpanIsNotRequired(ReadOnlySpan<char> column)
-            => column.Length > 0 ? TimeSpanIsRequired(column) : null;
+            => column.Length == 0 ? null : TimeSpanIsRequired(column);
     }
 }
