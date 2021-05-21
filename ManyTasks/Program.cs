@@ -10,7 +10,43 @@ namespace LargeAmountOfTasks
     {
         static void Main(string[] args)
         {
-            CreateWithoutWait();
+            TestForPT();
+        }
+
+
+        static void TestForPT()
+        {
+            var stopWatch = new Stopwatch();
+            var taskList = new List<Task>();
+
+            Console.WriteLine($"Time point 1: {DateTime.Now}");
+            stopWatch.Start();
+            for (int i = 0; i < 10000; i++)
+            {
+                taskList.Add(Task.Run(async () =>
+                {
+                    await Task.Delay(5000);
+
+                    // dont use Task.Delay GetAwaiter GetResult, it is very slow, block
+                    //Task.Delay(5000).ConfigureAwait(false).GetAwaiter().GetResult();
+                    //Task.Delay(5000).GetAwaiter().GetResult();
+                    //Task.Delay(5000).Wait();
+                    await Task.CompletedTask;
+                }));
+            }
+            stopWatch.Stop();
+            Console.WriteLine($"Time point 2: {DateTime.Now}, time: {stopWatch.Elapsed.TotalMilliseconds} ms");
+
+            stopWatch.Restart();
+            foreach (var task in taskList)
+            {
+                if (task is not null)
+                {
+                    task.GetAwaiter().GetResult();
+                }
+            }
+            stopWatch.Stop();
+            Console.WriteLine($"Time point 3: {DateTime.Now}, time: {stopWatch.Elapsed.TotalMilliseconds} ms");
         }
 
         static void CreateWithWait()
@@ -69,7 +105,8 @@ namespace LargeAmountOfTasks
                 //GC.Collect();
                 //collectTime.Stop();
 
-                Console.WriteLine($"{createTimeTasks.ElapsedMilliseconds}\t\t{countTasks}\t\t{GC.GetTotalMemory(false)}");
+                Console.WriteLine($"time: {createTimeTasks.ElapsedMilliseconds}\t\tcount tasks: {countTasks}");
+                //Console.WriteLine($"{createTimeTasks.ElapsedMilliseconds}\t\t{countTasks}\t\t{GC.GetTotalMemory(false)}");
                 //Console.WriteLine($"{createTimeTasks.ElapsedMilliseconds}\t\t{collectTime.ElapsedMilliseconds}\t\t{countTasks}\t\t{GC.GetTotalMemory(false)}");
                 createTimeTasks.Reset();
                 //collectTime.Reset();
