@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 
 namespace RandomGauss
 {
@@ -52,7 +50,7 @@ namespace RandomGauss
         public static void PrintStat(int[] data, int min, int max)
         {
             var counter = new int[max - min + 1];
-            
+
             for (var i = 0; i < data.Length; i++)
             {
                 counter[data[i] - min]++;
@@ -81,7 +79,7 @@ namespace RandomGauss
             }
             return data;
         }
-        
+
         public static double Gauss()
         {
             var random = new Random((int)DateTime.Now.Ticks);

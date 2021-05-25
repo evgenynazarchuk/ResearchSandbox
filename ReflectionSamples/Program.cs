@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 
 namespace ReflectionSamples
 {
@@ -23,7 +22,7 @@ namespace ReflectionSamples
         {
             var type = this.GetType();
             var properties = type.GetProperties();
-            
+
 
             if (values.Length != properties.Length)
             {

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace LargeAmountOfTasks
 {
@@ -53,7 +52,7 @@ namespace LargeAmountOfTasks
         {
             var tasks = new List<Task>();
             var stopWatch = new Stopwatch();
-            
+
             for (int i = 0; i < 30; i++)
             {
                 stopWatch.Start();

@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Collections.Generic;
 
 namespace PerformanceWriteToFile
 {
@@ -75,9 +75,9 @@ namespace PerformanceWriteToFile
         {
             var path = $"./{nameof(PerformanceWrite5)}.txt";
             using var fileStream = new FileStream(
-                path, 
-                FileMode.OpenOrCreate, 
-                FileAccess.Write, 
+                path,
+                FileMode.OpenOrCreate,
+                FileAccess.Write,
                 FileShare.ReadWrite,
                 bufferSize: 65535);
 

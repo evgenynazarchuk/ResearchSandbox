@@ -49,7 +49,7 @@ namespace AsyncAwaitException
             {
                 FunctionThrowExceptionAsync().Wait();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine($"{nameof(CallFunctionWithException2)} catch message: " + e.Message);
             }

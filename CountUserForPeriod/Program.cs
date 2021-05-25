@@ -37,7 +37,7 @@ namespace CountUsersForPeriod
             {
                 users = totalUsers / milliseconds;
             }
-            
+
             Console.WriteLine($"every milliseconds {interval}, run users {users}");
         }
     }

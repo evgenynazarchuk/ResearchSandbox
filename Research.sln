@@ -57,7 +57,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalcPeriodByStep", "CalcPer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadonlyAttrCheck", "ReadonlyAttrCheck\ReadonlyAttrCheck.csproj", "{74241FB9-59DB-4C79-A331-43A289FF1084}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlSer", "XmlSer\XmlSer.csproj", "{53AFCB89-C723-42A8-A05A-56BFFBBD0E14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XmlSer", "XmlSer\XmlSer.csproj", "{53AFCB89-C723-42A8-A05A-56BFFBBD0E14}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetNameFromEnum", "GetNameFromEnum\GetNameFromEnum.csproj", "{6B7E51AD-4E78-493F-81DD-865D0534A31D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkWithSoap", "WorkWithSoap\WorkWithSoap.csproj", "{C03D058F-7855-42F7-B0DA-A35E7E27E1B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoapClientHelper", "SoapClientHelper\SoapClientHelper.csproj", "{181319BE-45B3-4C85-98CE-EE4C83F5D847}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +183,18 @@ Global
 		{53AFCB89-C723-42A8-A05A-56BFFBBD0E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53AFCB89-C723-42A8-A05A-56BFFBBD0E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53AFCB89-C723-42A8-A05A-56BFFBBD0E14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B7E51AD-4E78-493F-81DD-865D0534A31D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B7E51AD-4E78-493F-81DD-865D0534A31D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B7E51AD-4E78-493F-81DD-865D0534A31D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B7E51AD-4E78-493F-81DD-865D0534A31D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C03D058F-7855-42F7-B0DA-A35E7E27E1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03D058F-7855-42F7-B0DA-A35E7E27E1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03D058F-7855-42F7-B0DA-A35E7E27E1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03D058F-7855-42F7-B0DA-A35E7E27E1B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181319BE-45B3-4C85-98CE-EE4C83F5D847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181319BE-45B3-4C85-98CE-EE4C83F5D847}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181319BE-45B3-4C85-98CE-EE4C83F5D847}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181319BE-45B3-4C85-98CE-EE4C83F5D847}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

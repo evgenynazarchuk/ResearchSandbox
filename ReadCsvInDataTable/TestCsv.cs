@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CsvReader
+﻿namespace CsvReader
 {
     public class TestCsv : CsvAutoMapperModel
     {
@@ -11,22 +9,22 @@ namespace CsvReader
 
         public uint UInt { get; private set; }
         public uint? UIntNull { get; private set; }
-        
+
         public long Long { get; private set; }
         public long? LongNull { get; private set; }
-        
+
         public ulong ULong { get; private set; }
         public ulong? ULongNull { get; private set; }
-        
+
         public float Float { get; private set; }
         public float? FloatNull { get; private set; }
-        
+
         public double Double { get; private set; }
         public double? DoubleNull { get; private set; }
-        
+
         public decimal Decimal { get; private set; }
         public decimal? DecimalNull { get; private set; }
-        
+
         public bool Bool { get; private set; }
         public bool? BoolNull { get; private set; }
         //

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace TaskMatrixWithWait
 {
@@ -25,7 +24,7 @@ namespace TaskMatrixWithWait
             int j = 0;
 
             //stopwatch.Start();
-            Task[,] arrayTasks = new Task[height,weight];
+            Task[,] arrayTasks = new Task[height, weight];
             for (i = 0; i < height; i++) // 1 200 000
             {
                 //arrayTasks[i] = new Task[weight];
@@ -33,24 +32,24 @@ namespace TaskMatrixWithWait
                 {
                     //stopwatch.Start();
                     //disposeWatch.Start();
-                    if (arrayTasks[i,j] is not null)
+                    if (arrayTasks[i, j] is not null)
                     {
-                        arrayTasks[i,j].Dispose();
+                        arrayTasks[i, j].Dispose();
                     }
                     //disposeWatch.Stop();
                     //disposeWatch.Reset();
                     //Console.WriteLine($"3 Dispose: {disposeWatch.ElapsedMilliseconds}");
 
-                    arrayTasks[i,j] = Task.Run(async () =>
-                    {
-                        ;
-                        await Task.Delay(1);
-                    });
+                    arrayTasks[i, j] = Task.Run(async () =>
+                     {
+                         ;
+                         await Task.Delay(1);
+                     });
 
                     //stopwatch.Stop();
 
                     //Console.WriteLine($"1 {DateTime.Now.ToString("O")}");
-                    
+
                     //Console.WriteLine($"2 Memory: {GC.GetTotalMemory(false)}, Time: {stopwatch.ElapsedMilliseconds}");
 
                     //stopwatch.Reset();
@@ -66,7 +65,7 @@ namespace TaskMatrixWithWait
                 }
             }
             //stopwatch.Stop();
-            
+
 
             //Console.WriteLine($"1 {DateTime.Now.ToString("O")}");
             //Console.WriteLine($"2 memory: {GC.GetTotalMemory(false)}\n{stopwatch.ElapsedMilliseconds}");

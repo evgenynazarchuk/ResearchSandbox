@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Text;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CsvReader
 {
     public sealed class CsvReader<ResultType> : IEnumerable<ResultType>
-        where ResultType: CsvModel, new()
+        where ResultType : CsvModel, new()
     {
         private readonly StreamReader _reader;
         private readonly Regex _parser;
@@ -19,15 +19,15 @@ namespace CsvReader
         }
 
         public CsvReader(
-            string path, 
-            bool hasHeader = true, 
-            bool detectEncodingFromByteOrderMarks = true, 
+            string path,
+            bool hasHeader = true,
+            bool detectEncodingFromByteOrderMarks = true,
             int bufferSize = 65525
             )
-            :this()
+            : this()
         {
             this._reader = new StreamReader(path, Encoding.UTF8, detectEncodingFromByteOrderMarks, bufferSize);
-            
+
 
             if (hasHeader)
             {
@@ -39,10 +39,10 @@ namespace CsvReader
             StreamReader streamReader,
             bool hasHeader = false
             )
-            :this()
+            : this()
         {
             this._reader = streamReader;
-            
+
             if (hasHeader)
             {
                 this._reader.ReadLine();

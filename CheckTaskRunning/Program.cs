@@ -15,9 +15,9 @@ namespace CheckTaskRunning
         {
             Task t = Task.Run(async () =>
             {
-              Console.WriteLine("App: start");
-              await Task.Delay(5000); // work
-              Console.WriteLine("App: end");
+                Console.WriteLine("App: start");
+                await Task.Delay(5000); // work
+                Console.WriteLine("App: end");
             });
             //Task t = Task.Factory.StartNew(() =>
             //{

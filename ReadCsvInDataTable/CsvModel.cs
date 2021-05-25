@@ -8,23 +8,23 @@ namespace CsvReader
 
         //
         public static int IntegerIsRequired(ReadOnlySpan<char> column)
-            => int.TryParse(column, out int columnValue) ? columnValue 
+            => int.TryParse(column, out int columnValue) ? columnValue
             : throw new CsvModelException("Integer field is wrong");
 
         public static uint UnsignedIntegerIsRequired(ReadOnlySpan<char> column)
-            => uint.TryParse(column, out uint columnValue) ? columnValue 
+            => uint.TryParse(column, out uint columnValue) ? columnValue
             : throw new CsvModelException("Unsigned Integer field is wrong");
 
         public static long LongIntegerIsRequired(ReadOnlySpan<char> column)
-            => long.TryParse(column, out long columnValue) ? columnValue 
+            => long.TryParse(column, out long columnValue) ? columnValue
             : throw new CsvModelException("Long Integer field is wrong");
 
         public static ulong UnsignedLongIntegerIsRequired(ReadOnlySpan<char> column)
-            => ulong.TryParse(column, out ulong columnValue) ? columnValue 
+            => ulong.TryParse(column, out ulong columnValue) ? columnValue
             : throw new CsvModelException("Unsigned Long Integer field is wrong");
 
         public static float FloatIsRequired(ReadOnlySpan<char> column)
-            => float.TryParse(column, out float columnValue) ? columnValue 
+            => float.TryParse(column, out float columnValue) ? columnValue
             : throw new CsvModelException("Float field is wrong");
 
         public static double DoubleIsRequired(ReadOnlySpan<char> column)
