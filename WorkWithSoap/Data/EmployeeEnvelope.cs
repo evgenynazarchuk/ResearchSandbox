@@ -3,10 +3,13 @@ using System.Xml.Serialization;
 
 namespace WorkWithSoap
 {
-    [XmlRoot(Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
-    public class Envelope
+    [XmlRoot(ElementName = "Envelope", Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
+    public class EmployeeEnvelope
     {
+        [XmlElement(Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
         public Header Header { get; set; }
+
+        [XmlElement(Namespace = "http://schemas.xmlsoap.org/soap/envelope/")]
         public Body Body { get; set; }
     }
 
@@ -30,6 +33,7 @@ namespace WorkWithSoap
     {
         [XmlElement(Namespace = "http://host/servce")]
         public int Id { get; set; }
+
         [XmlElement(Namespace = "http://host/servce")]
         public string Name { get; set; }
     }

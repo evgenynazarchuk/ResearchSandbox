@@ -7,7 +7,7 @@ namespace WorkWithSoap
     {
         static void Main(string[] args)
         {
-            Test1();
+            Test2();
         }
 
         static void Test1()
@@ -27,7 +27,7 @@ namespace WorkWithSoap
 
         static void Test2()
         {
-            var employeeEnvelope = new Envelope()
+            var employeeEnvelope = new EmployeeEnvelope()
             {
                 Header = new Header(),
                 Body = new Body()
