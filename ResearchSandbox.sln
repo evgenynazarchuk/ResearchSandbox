@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkWithSoap", "WorkWithSoa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoapClientHelper", "SoapClientHelper\SoapClientHelper.csproj", "{181319BE-45B3-4C85-98CE-EE4C83F5D847}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaHandler", "AkkaHandler\AkkaHandler.csproj", "{8DC57318-58FD-4D55-A0E9-93CF420C8249}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkkaHandler", "AkkaHandler\AkkaHandler.csproj", "{8DC57318-58FD-4D55-A0E9-93CF420C8249}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
