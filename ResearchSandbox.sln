@@ -67,6 +67,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoapClientHelper", "SoapCli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkkaHandler", "AkkaHandler\AkkaHandler.csproj", "{8DC57318-58FD-4D55-A0E9-93CF420C8249}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskProcessIdPrint", "TaskProcessIdPrint\TaskProcessIdPrint.csproj", "{A74EB937-E92F-4358-8307-29249FF987F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeCreateTask", "TimeCreateTask\TimeCreateTask.csproj", "{D238C89A-B64A-4775-9418-92F9D4607504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfWriterActor", "SelfWriterActor\SelfWriterActor.csproj", "{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +207,18 @@ Global
 		{8DC57318-58FD-4D55-A0E9-93CF420C8249}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DC57318-58FD-4D55-A0E9-93CF420C8249}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DC57318-58FD-4D55-A0E9-93CF420C8249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A74EB937-E92F-4358-8307-29249FF987F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A74EB937-E92F-4358-8307-29249FF987F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A74EB937-E92F-4358-8307-29249FF987F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A74EB937-E92F-4358-8307-29249FF987F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D238C89A-B64A-4775-9418-92F9D4607504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D238C89A-B64A-4775-9418-92F9D4607504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D238C89A-B64A-4775-9418-92F9D4607504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D238C89A-B64A-4775-9418-92F9D4607504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
