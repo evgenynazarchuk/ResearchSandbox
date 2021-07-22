@@ -69,9 +69,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkkaHandler", "AkkaHandler\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskProcessIdPrint", "TaskProcessIdPrint\TaskProcessIdPrint.csproj", "{A74EB937-E92F-4358-8307-29249FF987F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeCreateTask", "TimeCreateTask\TimeCreateTask.csproj", "{D238C89A-B64A-4775-9418-92F9D4607504}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeCreateTask", "TimeCreateTask\TimeCreateTask.csproj", "{D238C89A-B64A-4775-9418-92F9D4607504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfWriterActor", "SelfWriterActor\SelfWriterActor.csproj", "{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfWriterActor", "SelfWriterActor\SelfWriterActor.csproj", "{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncEnumerable", "AsyncEnumerable\AsyncEnumerable.csproj", "{A48837B6-8C00-4245-A966-56922E55AC30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareImage", "CompareImage\CompareImage.csproj", "{1247FE5C-017A-461D-BFE8-64FE2C20DC10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -219,6 +223,14 @@ Global
 		{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8C94E57-34E4-40CC-827A-C2B1ADBB4206}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A48837B6-8C00-4245-A966-56922E55AC30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A48837B6-8C00-4245-A966-56922E55AC30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A48837B6-8C00-4245-A966-56922E55AC30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A48837B6-8C00-4245-A966-56922E55AC30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1247FE5C-017A-461D-BFE8-64FE2C20DC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1247FE5C-017A-461D-BFE8-64FE2C20DC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1247FE5C-017A-461D-BFE8-64FE2C20DC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1247FE5C-017A-461D-BFE8-64FE2C20DC10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

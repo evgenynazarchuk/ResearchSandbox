@@ -32,12 +32,14 @@ namespace TimeCreateTask
             System.Timers.Timer timer = new(1000);
             Stopwatch watch = new();
 
+            List<Task> list = new();
+
             timer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) =>
             {
                 watch.Start();
                 for (int i = 0; i < 50_000; i++)
                 {
-                    InvokeAsync();
+                    list.Add(InvokeAsync());
                 }
                 watch.Stop();
                 Console.WriteLine($"Created tasks time: {watch.ElapsedMilliseconds} ms");
