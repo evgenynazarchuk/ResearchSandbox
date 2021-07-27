@@ -75,7 +75,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfWriterActor", "SelfWrit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncEnumerable", "AsyncEnumerable\AsyncEnumerable.csproj", "{A48837B6-8C00-4245-A966-56922E55AC30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareImage", "CompareImage\CompareImage.csproj", "{1247FE5C-017A-461D-BFE8-64FE2C20DC10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompareImage", "CompareImage\CompareImage.csproj", "{1247FE5C-017A-461D-BFE8-64FE2C20DC10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAccumulator", "AsyncAccumulator\AsyncAccumulator.csproj", "{DA7151CF-8F97-4632-B9D5-064E0579848E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -231,6 +233,10 @@ Global
 		{1247FE5C-017A-461D-BFE8-64FE2C20DC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1247FE5C-017A-461D-BFE8-64FE2C20DC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1247FE5C-017A-461D-BFE8-64FE2C20DC10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA7151CF-8F97-4632-B9D5-064E0579848E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA7151CF-8F97-4632-B9D5-064E0579848E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA7151CF-8F97-4632-B9D5-064E0579848E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA7151CF-8F97-4632-B9D5-064E0579848E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
