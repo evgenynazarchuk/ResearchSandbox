@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Diagnostics;
 
 namespace AsyncAccumulator
 {
@@ -39,6 +40,13 @@ namespace AsyncAccumulator
                     Console.WriteLine("Error");
                 }
             }
+
+
+            Stopwatch watch = new();
+            watch.Start();
+            queue.Enqueue(5);
+            watch.Stop();
+            Console.WriteLine($"run time: {watch.Elapsed}");
         }
     }
 }
