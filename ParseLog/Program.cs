@@ -11,82 +11,223 @@ namespace ParseLog
     {
         static void Main(string[] args)
         {
-            StreamReader reader = new("result.log", Encoding.UTF8, false, 65535);
-            List<LogMessage> logMessages = new();
+            var readfile = "result 1.log";
+            var outputfile = "report 1.html";
 
-            string? logString;
-            LogMessage? logMessage;
-            while ((logString = reader.ReadLine()) != null)
+            StreamReader reader = new(readfile, Encoding.UTF8, false, 65535);
+            List<RawLogMessage> rawLogMessages = new();
+
+            string? rawLogAsString;
+            RawLogMessage? rawLogMessage;
+            while ((rawLogAsString = reader.ReadLine()) != null)
             {
-                logMessage = JsonSerializer.Deserialize<LogMessage>(logString);
-                if (logMessage is null) break;
-                logMessages.Add(logMessage);
+                rawLogMessage = JsonSerializer.Deserialize<RawLogMessage>(rawLogAsString);
+                if (rawLogMessage is null) break;
+                rawLogMessages.Add(rawLogMessage);
             }
             reader.Close();
 
-            var groupByRequestAndDateTime = logMessages
-                .GroupBy(x => new { x.Request, x.StatusCode, EndResponse = x.EndResponse.Trim() })
+            var groupByRequestStatusCodeEndResponse = rawLogMessages
+                .GroupBy(x => new { x.User, x.Request, x.StatusCode, EndResponse = x.EndResponse.Trim() })
                 .Select(x => new
                 {
                     x.Key,
                     CompletedRequest = x.LongCount(),
                     SentBytes = x.Sum(y => y.SendBytes),
                     ReceivedBytes = x.Sum(y => y.ReceiveBytes),
-                    ResponseTime = x.Average(y => y.EndResponse.Subtract(y.StartSendRequest).Ticks)
+                    ResponseTime = x.Average(y => y.EndResponse.Subtract(y.StartSendRequest).Ticks),
+                    SentTime = x.Average(y => y.StartWaitResponse.Ticks - y.StartSendRequest.Ticks),
+                    WaitTime = x.Average(y => y.StartResponse.Subtract(y.StartWaitResponse).Ticks),
+                    ReceivedTime = x.Average(y => y.EndResponse.Ticks - y.StartResponse.Ticks)
                 });
 
-            StreamWriter writer = new("total.html", false, Encoding.UTF8, 65355);
-            StringBuilder builder = new();
-
-            foreach (var item in groupByRequestAndDateTime)
+            StreamWriter reportWriter = new(outputfile, false, Encoding.UTF8, 65355);
+            StringBuilder groupedStringLog = new();
+            
+            //
+            foreach (var item in groupByRequestStatusCodeEndResponse)
             {
-                TotalLog totalLog = new(item.Key.Request,
+                GroupedRawLogMessage totalLog = new(
+                    item.Key.User,
+                    item.Key.Request,
                     item.Key.StatusCode,
                     item.Key.EndResponse,
                     item.CompletedRequest,
                     item.ResponseTime,
-                    item.SentBytes,
-                    item.ReceivedBytes);
+                    item.SentTime,
+                    item.WaitTime,
+                    item.ReceivedTime);
             
-                builder.Append(JsonSerializer.Serialize(totalLog) + ",\n");
+                groupedStringLog.Append(JsonSerializer.Serialize(totalLog) + ",\n");
             }
 
-            string completedRequest_datasets = @"
+            //
+            StringBuilder sentStringLog = new();
+            StringBuilder receivedStringLog = new();
+
+            var groupByEndResponse = rawLogMessages
+                .GroupBy(x => new { EndResponse = x.EndResponse.Trim() })
+                .Select(x => new
+                {
+                    EndResponse = x.Key.EndResponse,
+                    SentBytes = x.Sum(y => y.SendBytes),
+                    ReceivedBytes = x.Sum(y => y.ReceiveBytes)
+                });
+
+            foreach (var item in groupByEndResponse)
+            {
+                sentStringLog.Append(JsonSerializer.Serialize(new BytesCount(item.EndResponse, item.SentBytes)) + ",\n");
+                receivedStringLog.Append(JsonSerializer.Serialize(new BytesCount(item.EndResponse, item.ReceivedBytes)) + ",\n");
+            }
+
+            //
+            string sourceData = @$"
+
 <script>
-let labels = { };
-for (let item of data)
+const data = [{groupedStringLog}]
+const sentBytesLog = [{sentStringLog}]
+const receivedBytesLog = [{receivedStringLog}]
+</script>
+
+";
+
+            //
+            string sentBytesDataset = @"
+<script>
+
+let sentBytesData = []
+for (item of sentBytesLog)
 {
-    if (labels[item.Request + ' ' + item.StatusCode] == undefined)
-    {
-        labels[item.Request + ' ' + item.StatusCode] = []
-    }
-    labels[item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.CompletedRequest })
+    sentBytesData.push({ x: item.EndResponse, y: item.Count })
 }
 
-let datasets = []
-for(let key in labels)
+
+let sentBytesline = {}
+sentBytesline.label = 'Sent Bytes'
+sentBytesline.borderColor = 'rgb(54, 162, 235, 0.7)'
+sentBytesline.backgroundColor = 'transparent'
+sentBytesline.data = sentBytesData
+sentBytesline.pointRadius = 1
+sentBytesline.borderWidth = 1
+let sentBytesDataset = []
+sentBytesDataset.push(sentBytesline)
+
+</script>
+";
+
+            //
+            string receivedBytesDataset = @"
+<script>
+
+let receivedBytesData = []
+for (item of receivedBytesLog)
+{
+    receivedBytesData.push({ x: item.EndResponse, y: item.Count })
+}
+
+let receivedBytesDataset = []
+let receivedBytesline = {}
+receivedBytesline.label = 'Received Bytes'
+receivedBytesline.borderColor = 'rgb(54, 162, 235, 0.7)'
+receivedBytesline.backgroundColor = 'transparent'
+receivedBytesline.data = receivedBytesData
+receivedBytesline.pointRadius = 1
+receivedBytesline.borderWidth = 1
+receivedBytesDataset.push(receivedBytesline)
+
+</script>
+";
+
+            //
+            string sentBytesChart = @"
+<script>
+let sentBytesCtx = document.getElementById('Sent Bytes').getContext('2d');
+new Chart(sentBytesCtx, {
+  type: 'line',
+  data: { datasets: sentBytesDataset },
+  options: {
+    scales: {
+      x: [{
+        type: 'time',
+      }],
+    },
+	plugins: {
+      title: {
+        display: true,
+        text: 'Sent Bytes'
+      },
+    },
+  }
+});
+</script>
+";
+
+            //
+            string receivedBytesChart = @"
+<script>
+let receivedBytesCtx = document.getElementById('Received Bytes').getContext('2d');
+new Chart(receivedBytesCtx, {
+  type: 'line',
+  data: { datasets: receivedBytesDataset },
+  options: {
+    scales: {
+      x: [{
+        type: 'time',
+      }],
+    },
+	plugins: {
+      title: {
+        display: true,
+        text: 'Received Bytes'
+      },
+    },
+  }
+});
+</script>
+";
+
+            //
+            string completedRequest_datasets = @"
+<script>
+let completedRequestsLabels = { };
+for (let item of data)
+{
+    if (completedRequestsLabels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    {
+        completedRequestsLabels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+    }
+    completedRequestsLabels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.CompletedRequest })
+}
+
+let completedRequestsLabelsDatasets = []
+for(let key in completedRequestsLabels)
 {
     let line = {}
     line.label = key
     line.borderColor = 'rgb(54, 162, 235, 0.7)'
     line.backgroundColor = 'transparent'
-    line.data = labels[key]
-    datasets.push(line)
+    line.data = completedRequestsLabels[key]
+    line.pointRadius = 1
+    line.borderWidth = 1
+    completedRequestsLabelsDatasets.push(line)
 }
+
 </script>
 ";
 
+            //
             string responseTime_datasets = @"
 <script>
+
 let response_labels = { };
 
 for (let item of data)
 {
-    if (response_labels[item.Request + ' ' + item.StatusCode] == undefined)
+    if (response_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
     {
-        response_labels[item.Request + ' ' + item.StatusCode] = []
+        response_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
     }
-    response_labels[item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.ResponseTime / 1000 })
+    response_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.ResponseTime / 10000 })
 }
 
 let response_datasets = []
@@ -97,45 +238,115 @@ for(let key in response_labels)
     line.borderColor = 'rgb(54, 162, 235, 0.7)'
     line.backgroundColor = 'transparent'
     line.data = response_labels[key]
+    line.borderWidth = 1
+    line.pointRadius = 1
     response_datasets.push(line)
 }
+
 </script>
 ";
 
+            //
+            string sentTime_datasets = @"
+<script>
+
+let sentTime_labels = { };
+
+for (let item of data)
+{
+    if (sentTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    {
+        sentTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+    }
+    sentTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.SentTime / 10000 })
+}
+
+let sentTime_datasets = []
+for(let key in sentTime_labels)
+{
+    let line = {}
+    line.label = key
+    line.borderColor = 'rgb(54, 162, 235, 0.7)'
+    line.backgroundColor = 'transparent'
+    line.data = sentTime_labels[key]
+    line.borderWidth = 1
+    line.pointRadius = 1
+    sentTime_datasets.push(line)
+}
+
+</script>
+";
+            //
+            string waitTime_datasets = @"
+<script>
+
+let waitTime_labels = { };
+
+for (let item of data)
+{
+    if (waitTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    {
+        waitTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+    }
+    waitTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.WaitTime / 10000 })
+}
+
+let waitTime_datasets = []
+for(let key in waitTime_labels)
+{
+    let line = {}
+    line.label = key
+    line.borderColor = 'rgb(54, 162, 235, 0.7)'
+    line.backgroundColor = 'transparent'
+    line.data = waitTime_labels[key]
+    line.borderWidth = 1
+    line.pointRadius = 1
+    waitTime_datasets.push(line)
+}
+
+</script>
+";
+
+            //
+            string receivedTime_datasets = @"
+<script>
+
+let receivedTime_labels = { };
+
+for (let item of data)
+{
+    if (receivedTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    {
+        receivedTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+    }
+    receivedTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.ReceivedTime / 10000 })
+}
+
+let receivedTime_datasets = []
+for(let key in receivedTime_labels)
+{
+    let line = {}
+    line.label = key
+    line.borderColor = 'rgb(54, 162, 235, 0.7)'
+    line.backgroundColor = 'transparent'
+    line.data = receivedTime_labels[key]
+    line.borderWidth = 1
+    line.pointRadius = 1
+    receivedTime_datasets.push(line)
+}
+
+</script>
+";
+
+            
+            //
             string drawGraphs = @"
 <script>
-let completedRequestCtx = document.getElementById('CompletedResponse').getContext('2d');
-new Chart(completedRequestCtx, {
-  type: 'line',
-  data: { datasets: datasets },
-  options: {
-	responsive: true,
-    scales: {
-      xAxes: [{
-        type: 'time',		
-		distribution: 'linear'
-      }],
-      yAxes: {
-                min: 400,
-                max: 1200,
-				
-      }
-    },
-	plugins: {
-      title: {
-        display: true,
-        text: 'Completed Request per second'
-      }
-    },
-  }
-});
-
 let responseTimeCtx = document.getElementById('ResponseTime').getContext('2d');
 new Chart(responseTimeCtx, {
   type: 'line',
   data: { datasets: response_datasets },
   options: {
-  responsive: true,
     scales: {
       x: [{
         type: 'time',
@@ -144,33 +355,126 @@ new Chart(responseTimeCtx, {
 	plugins: {
       title: {
         display: true,
-        text: 'Response Time'
+        text: 'Request Response Time'
       },
     },
   }
 });
+
+//
+let completedRequestCtx = document.getElementById('CompletedResponse').getContext('2d');
+new Chart(completedRequestCtx, {
+  type: 'line',
+  data: { datasets: completedRequestsLabelsDatasets },
+  options: {
+    scales: {
+      xAxes: [{
+        type: 'time',
+      }],
+    },
+	plugins: {
+      title: {
+        display: true,
+        text: 'Completed Requests'
+      }
+    },
+  }
+});
+
+
+//
+let sentTimeCtx = document.getElementById('SentTime').getContext('2d');
+new Chart(sentTimeCtx, {
+  type: 'line',
+  data: { datasets: sentTime_datasets },
+  options: {
+    scales: {
+      x: [{
+        type: 'time',
+      }],
+    },
+	plugins: {
+      title: {
+        display: true,
+        text: 'Data Timed Sending'
+      },
+    },
+  }
+});
+
+//
+let waitTimeCtx = document.getElementById('WaitTime').getContext('2d');
+new Chart(waitTimeCtx, {
+  type: 'line',
+  data: { datasets: waitTime_datasets },
+  options: {
+    scales: {
+      x: [{
+        type: 'time',
+      }],
+    },
+	plugins: {
+      title: {
+        display: true,
+        text: 'Data Wait Times'
+      },
+    },
+  }
+});
+
+//
+let receivedTimeCtx = document.getElementById('ReceivedTime').getContext('2d');
+new Chart(receivedTimeCtx, {
+  type: 'line',
+  data: { datasets: receivedTime_datasets },
+  options: {
+    scales: {
+      x: [{
+        type: 'time',
+      }],
+    },
+	plugins: {
+      title: {
+        display: true,
+        text: 'Data Timed Receiving'
+      },
+    },
+  }
+});
+
 </script>
 ";
 
-            string html = $@"
+            //
+            string htmlReport = $@"
 <html>
 <head>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js' integrity='sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
-<script>
-const data = [{builder}]
-</script>
-{completedRequest_datasets}
+{sourceData}
 {responseTime_datasets}
+{completedRequest_datasets}
+{sentTime_datasets}
+{waitTime_datasets}
+{receivedTime_datasets}
+{sentBytesDataset}
+{receivedBytesDataset}
 </head>
-<body style='background-color: black'>
-<canvas id='CompletedResponse' height='70px'></canvas>
+<body>
 <canvas id='ResponseTime' height='70px'></canvas>
-{ drawGraphs}
+<canvas id='CompletedResponse' height='70px'></canvas>
+<canvas id='SentTime' height='70px'></canvas>
+<canvas id='WaitTime' height='70px'></canvas>
+<canvas id='ReceivedTime' height='70px'></canvas>
+<canvas id='Sent Bytes' height='70px'></canvas>
+<canvas id='Received Bytes' height='70px'></canvas>
+{drawGraphs}
+{sentBytesChart}
+{receivedBytesChart}
 </body>
 </html>
 ";
-            writer.WriteLine(html);
-            writer.Close();
+            reportWriter.WriteLine(htmlReport);
+            reportWriter.Close();
 
             
         }

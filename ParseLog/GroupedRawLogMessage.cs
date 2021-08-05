@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace ParseLog
 {
-    public class TotalLog
+    public class GroupedRawLogMessage
     {
+        public string User { get; set; }
+
         public string Request { get; set; }
 
         public int StatusCode { get; set; }
@@ -18,25 +20,32 @@ namespace ParseLog
 
         public double ResponseTime { get; set; }
 
-        public int SentBytes { get; set; }
+        public double SentTime { get; set; }
 
-        public int ReceivedBytes { get; set; }
+        public double WaitTime { get; set; }
 
-        public TotalLog(string request,
+        public double ReceivedTime { get; set; }
+
+        public GroupedRawLogMessage(
+            string user,
+            string request,
             int statusCode,
             DateTime endResponse,
             long completedRequest,
             double responseTime,
-            int sentBytes,
-            int receivedBytes)
+            double sentTime,
+            double waitTime,
+            double receiveTime)
         {
+            User = user;
             Request = request;
             StatusCode = statusCode;
             EndResponse = endResponse;
             CompletedRequest = completedRequest;
             ResponseTime = responseTime;
-            SentBytes = sentBytes;
-            ReceivedBytes = receivedBytes;
+            SentTime = sentTime;
+            WaitTime = waitTime;
+            ReceivedTime = receiveTime;
         }
     }
 }
