@@ -8,11 +8,11 @@ namespace ParseLog
 {
     public class BytesCount
     {
-        public DateTime EndResponse { get; set; }
+        public long EndResponse { get; set; }
 
         public int Count { get; set; }
 
-        public BytesCount(DateTime EndResponse, int count)
+        public BytesCount(long EndResponse, int count)
         {
             this.EndResponse = EndResponse;
             Count = count;

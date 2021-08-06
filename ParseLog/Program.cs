@@ -28,17 +28,17 @@ namespace ParseLog
             reader.Close();
 
             var groupByRequestStatusCodeEndResponse = rawLogMessages
-                .GroupBy(x => new { x.User, x.Request, x.StatusCode, EndResponse = x.EndResponse.Trim() })
+                .GroupBy(x => new { x.User, x.Request, x.StatusCode, EndResponse = (long)(x.EndResponse / 10000000) })
                 .Select(x => new
                 {
                     x.Key,
                     CompletedRequest = x.LongCount(),
                     SentBytes = x.Sum(y => y.SendBytes),
                     ReceivedBytes = x.Sum(y => y.ReceiveBytes),
-                    ResponseTime = x.Average(y => y.EndResponse.Subtract(y.StartSendRequest).Ticks),
-                    SentTime = x.Average(y => y.StartWaitResponse.Ticks - y.StartSendRequest.Ticks),
-                    WaitTime = x.Average(y => y.StartResponse.Subtract(y.StartWaitResponse).Ticks),
-                    ReceivedTime = x.Average(y => y.EndResponse.Ticks - y.StartResponse.Ticks)
+                    ResponseTime = x.Average(y => y.EndResponse - y.StartSendRequest),
+                    SentTime = x.Average(y => y.StartWaitResponse - y.StartSendRequest),
+                    WaitTime = x.Average(y => y.StartResponse - y.StartWaitResponse),
+                    ReceivedTime = x.Average(y => y.EndResponse - y.StartResponse)
                 });
 
             StreamWriter reportWriter = new(outputfile, false, Encoding.UTF8, 65355);
@@ -66,7 +66,7 @@ namespace ParseLog
             StringBuilder receivedStringLog = new();
 
             var groupByEndResponse = rawLogMessages
-                .GroupBy(x => new { EndResponse = x.EndResponse.Trim() })
+                .GroupBy(x => new { EndResponse = x.EndResponse / 10000000 })
                 .Select(x => new
                 {
                     EndResponse = x.Key.EndResponse,
@@ -84,7 +84,7 @@ namespace ParseLog
             string sourceData = @$"
 
 <script>
-const data = [{groupedStringLog}]
+const groupedRawLog = [{groupedStringLog}]
 const sentBytesLog = [{sentStringLog}]
 const receivedBytesLog = [{receivedStringLog}]
 </script>
@@ -92,356 +92,339 @@ const receivedBytesLog = [{receivedStringLog}]
 ";
 
             //
-            string sentBytesDataset = @"
+            var axisFontLayout = @"
 <script>
-
-let sentBytesData = []
-for (item of sentBytesLog)
-{
-    sentBytesData.push({ x: item.EndResponse, y: item.Count })
+let yaxisFontLayout = {
+	family: 'Arial',
+	size: 16,
+	color: '#7f7f7f'
+}		
+let xaxisFontLayout = {
+	family: 'Arial',
+	size: 16,
+	color: '#7f7f7f'
 }
-
-
-let sentBytesline = {}
-sentBytesline.label = 'Sent Bytes'
-sentBytesline.borderColor = 'rgb(54, 162, 235, 0.7)'
-sentBytesline.backgroundColor = 'transparent'
-sentBytesline.data = sentBytesData
-sentBytesline.pointRadius = 1
-sentBytesline.borderWidth = 1
-let sentBytesDataset = []
-sentBytesDataset.push(sentBytesline)
-
 </script>
 ";
 
-            //
-            string receivedBytesDataset = @"
+			//
+			var titleFontLayout = @"
 <script>
-
-let receivedBytesData = []
-for (item of receivedBytesLog)
-{
-    receivedBytesData.push({ x: item.EndResponse, y: item.Count })
+let titleFontLayout = {
+	family: 'Arial',
+	size: 32
 }
-
-let receivedBytesDataset = []
-let receivedBytesline = {}
-receivedBytesline.label = 'Received Bytes'
-receivedBytesline.borderColor = 'rgb(54, 162, 235, 0.7)'
-receivedBytesline.backgroundColor = 'transparent'
-receivedBytesline.data = receivedBytesData
-receivedBytesline.pointRadius = 1
-receivedBytesline.borderWidth = 1
-receivedBytesDataset.push(receivedBytesline)
-
 </script>
 ";
 
             //
-            string sentBytesChart = @"
+            var responseTimeChart = @"
 <script>
-let sentBytesCtx = document.getElementById('Sent Bytes').getContext('2d');
-new Chart(sentBytesCtx, {
-  type: 'line',
-  data: { datasets: sentBytesDataset },
-  options: {
-    scales: {
-      x: [{
-        type: 'time',
-      }],
-    },
-	plugins: {
-      title: {
-        display: true,
-        text: 'Sent Bytes'
-      },
-    },
-  }
-});
-</script>
-";
-
-            //
-            string receivedBytesChart = @"
-<script>
-let receivedBytesCtx = document.getElementById('Received Bytes').getContext('2d');
-new Chart(receivedBytesCtx, {
-  type: 'line',
-  data: { datasets: receivedBytesDataset },
-  options: {
-    scales: {
-      x: [{
-        type: 'time',
-      }],
-    },
-	plugins: {
-      title: {
-        display: true,
-        text: 'Received Bytes'
-      },
-    },
-  }
-});
-</script>
-";
-
-            //
-            string completedRequest_datasets = @"
-<script>
-let completedRequestsLabels = { };
-for (let item of data)
-{
-    if (completedRequestsLabels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+let responseTimeData = {}
+for(let item of groupedRawLog) {
+	if (responseTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
     {
-        completedRequestsLabels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        responseTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
     }
-    completedRequestsLabels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.CompletedRequest })
+	let date = new Date(0);
+	date.setSeconds(item.EndResponse);
+	let timeString = date.toISOString().substr(11, 8);
+    responseTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.ResponseTime / 10000 })
 }
 
-let completedRequestsLabelsDatasets = []
-for(let key in completedRequestsLabels)
-{
-    let line = {}
-    line.label = key
-    line.borderColor = 'rgb(54, 162, 235, 0.7)'
-    line.backgroundColor = 'transparent'
-    line.data = completedRequestsLabels[key]
-    line.pointRadius = 1
-    line.borderWidth = 1
-    completedRequestsLabelsDatasets.push(line)
+let responseTimeChartDatasets = []
+for(let key in responseTimeData) {
+	responseTimeChartDatasets.push({
+		x: responseTimeData[key].map(item => item.x),
+		y: responseTimeData[key].map(item => item.y),
+		type: 'scatter'
+	})
 }
 
+let responseTimeChartLayout ={
+	title: {
+		text:'Response Time',
+		font: titleFontLayout,
+	},
+	xaxis: {
+		title: {
+		text: '',
+		font: xaxisFontLayout
+		}
+	},
+	
+	yaxis: {
+		title: {
+		text: 'Milliseconds',
+		font: yaxisFontLayout
+		}
+	}
+}
+
+
+Plotly.newPlot('ResponseTimeChart', responseTimeChartDatasets, responseTimeChartLayout);
 </script>
 ";
 
             //
-            string responseTime_datasets = @"
+            var completedRequestsChart = @"
 <script>
-
-let response_labels = { };
-
-for (let item of data)
+let completedRequestsData = { };
+for (let item of groupedRawLog)
 {
-    if (response_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    if (completedRequestsData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
     {
-        response_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        completedRequestsData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
     }
-    response_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.ResponseTime / 10000 })
+	let date = new Date(0);
+	date.setSeconds(item.EndResponse);
+	let timeString = date.toISOString().substr(11, 8);
+    completedRequestsData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.CompletedRequest })
 }
 
-let response_datasets = []
-for(let key in response_labels)
-{
-    let line = {}
-    line.label = key
-    line.borderColor = 'rgb(54, 162, 235, 0.7)'
-    line.backgroundColor = 'transparent'
-    line.data = response_labels[key]
-    line.borderWidth = 1
-    line.pointRadius = 1
-    response_datasets.push(line)
+let completedRequestsChartDatasets = []
+for(let key in completedRequestsData) {
+	completedRequestsChartDatasets.push({
+		x: completedRequestsData[key].map(item => item.x),
+		y: completedRequestsData[key].map(item => item.y),
+		type: 'scatter'
+	})
 }
 
+let completedRequestsChartLayout = {
+	title: {
+		text:'Completed Requests',
+		font: titleFontLayout,
+	},
+	xaxis: {
+		title: {
+			text: '',
+			font: xaxisFontLayout
+		}
+	},
+	yaxis: {
+		title: {
+			text: 'Requests',
+			font: yaxisFontLayout
+		}
+	}
+}
+
+Plotly.newPlot('CompletedRequestsChart', completedRequestsChartDatasets, completedRequestsChartLayout);
 </script>
 ";
 
             //
-            string sentTime_datasets = @"
+            var sentTimeChart = @"
 <script>
-
-let sentTime_labels = { };
-
-for (let item of data)
+let sentTimeData = { };
+for (let item of groupedRawLog)
 {
-    if (sentTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    if (sentTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
     {
-        sentTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        sentTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
     }
-    sentTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.SentTime / 10000 })
+	let date = new Date(0);
+	date.setSeconds(item.EndResponse);
+	let timeString = date.toISOString().substr(11, 8);
+    sentTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.SentTime / 10000 })
 }
 
-let sentTime_datasets = []
-for(let key in sentTime_labels)
-{
-    let line = {}
-    line.label = key
-    line.borderColor = 'rgb(54, 162, 235, 0.7)'
-    line.backgroundColor = 'transparent'
-    line.data = sentTime_labels[key]
-    line.borderWidth = 1
-    line.pointRadius = 1
-    sentTime_datasets.push(line)
+let sentTimeChartDatasets = []
+for(let key in sentTimeData) {
+	sentTimeChartDatasets.push({
+		x: sentTimeData[key].map(item => item.x),
+		y: sentTimeData[key].map(item => item.y),
+		type: 'scatter'
+	})
 }
 
+
+let sentTimeChartlayout ={
+	title: {
+		text:'Data Timed Sending',
+		font: titleFontLayout,
+	},
+	xaxis: {
+		title: {
+			text: '',
+			font: xaxisFontLayout
+		}
+	},
+	yaxis: {
+		title: {
+			text: 'Milliseconds',
+			font: yaxisFontLayout
+		}
+	}
+}
+
+Plotly.newPlot('SentTimeChart', sentTimeChartDatasets, sentTimeChartlayout);
 </script>
 ";
+
             //
-            string waitTime_datasets = @"
+            var waitTimeChart = @"
 <script>
-
-let waitTime_labels = { };
-
-for (let item of data)
+let waitTimeData = { };
+for (let item of groupedRawLog)
 {
-    if (waitTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    if (waitTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
     {
-        waitTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        waitTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
     }
-    waitTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.WaitTime / 10000 })
+	let date = new Date(0);
+	date.setSeconds(item.EndResponse);
+	let timeString = date.toISOString().substr(11, 8);
+    waitTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.WaitTime / 10000 })
 }
 
-let waitTime_datasets = []
-for(let key in waitTime_labels)
-{
-    let line = {}
-    line.label = key
-    line.borderColor = 'rgb(54, 162, 235, 0.7)'
-    line.backgroundColor = 'transparent'
-    line.data = waitTime_labels[key]
-    line.borderWidth = 1
-    line.pointRadius = 1
-    waitTime_datasets.push(line)
+let waitTimeChartDatasets = []
+for(let key in waitTimeData) {
+	waitTimeChartDatasets.push({
+		x: waitTimeData[key].map(item => item.x),
+		y: waitTimeData[key].map(item => item.y),
+		type: 'scatter'
+	})
 }
 
+let waitTimeChartLayout ={
+	title: {
+		text:'Data Wait Times',
+		font: titleFontLayout,
+	},
+	xaxis: {
+		title: {
+			text: '',
+			font: xaxisFontLayout
+		}
+	},
+	yaxis: {
+		title: {
+			text: 'Milliseconds',
+			font: yaxisFontLayout
+		}
+	}
+}
+
+Plotly.newPlot('WaitTimeChart', waitTimeChartDatasets, waitTimeChartLayout);
 </script>
 ";
 
             //
-            string receivedTime_datasets = @"
+            var receivedTimeChart = @"
 <script>
-
-let receivedTime_labels = { };
-
-for (let item of data)
+let receivedTimeData = { };
+for (let item of groupedRawLog)
 {
-    if (receivedTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    if (receivedTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
     {
-        receivedTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        receivedTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
     }
-    receivedTime_labels[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: item.EndResponse, y: item.ReceivedTime / 10000 })
+	let date = new Date(0);
+	date.setSeconds(item.EndResponse);
+	let timeString = date.toISOString().substr(11, 8);
+    receivedTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.ReceivedTime / 10000 })
 }
 
-let receivedTime_datasets = []
-for(let key in receivedTime_labels)
-{
-    let line = {}
-    line.label = key
-    line.borderColor = 'rgb(54, 162, 235, 0.7)'
-    line.backgroundColor = 'transparent'
-    line.data = receivedTime_labels[key]
-    line.borderWidth = 1
-    line.pointRadius = 1
-    receivedTime_datasets.push(line)
+let receivedTimeChartDatasets = []
+for(let key in receivedTimeData) {
+	receivedTimeChartDatasets.push({
+		x: receivedTimeData[key].map(item => item.x),
+		y: receivedTimeData[key].map(item => item.y),
+		type: 'scatter'
+	})
 }
 
+let receivedTimeChartLayout ={
+	title: {
+		text:'Data Timed Receiving',
+		font: titleFontLayout,
+	},
+	xaxis: {
+		title: {
+		text: '',
+		font: xaxisFontLayout
+		}
+	},
+	
+	yaxis: {
+		title: {
+		text: 'Milliseconds',
+		font: yaxisFontLayout
+		}
+	}
+}
+
+Plotly.newPlot('ReceivedTimeChart', receivedTimeChartDatasets, receivedTimeChartLayout);
 </script>
 ";
 
-            
-            //
-            string drawGraphs = @"
+			//
+			var sentBytesChart = @"
 <script>
-let responseTimeCtx = document.getElementById('ResponseTime').getContext('2d');
-new Chart(responseTimeCtx, {
-  type: 'line',
-  data: { datasets: response_datasets },
-  options: {
-    scales: {
-      x: [{
-        type: 'time',
-      }],
-    },
-	plugins: {
-      title: {
-        display: true,
-        text: 'Request Response Time'
-      },
-    },
-  }
-});
+let sentBytesChartDataset = []
+sentBytesChartDataset.push({
+	x: sentBytesLog.map(item => item.EndResponse),
+	y: sentBytesLog.map(item => item.Count),
+	type: 'scatter'
+})
 
-//
-let completedRequestCtx = document.getElementById('CompletedResponse').getContext('2d');
-new Chart(completedRequestCtx, {
-  type: 'line',
-  data: { datasets: completedRequestsLabelsDatasets },
-  options: {
-    scales: {
-      xAxes: [{
-        type: 'time',
-      }],
-    },
-	plugins: {
-      title: {
-        display: true,
-        text: 'Completed Requests'
-      }
-    },
-  }
-});
+let sentBytesChartLayout ={
+	title: {
+		text:'Sent Bytes',
+		font: titleFontLayout,
+	},
+	xaxis: {
+		title: {
+		text: '',
+		font: xaxisFontLayout
+		}
+	},
+	
+	yaxis: {
+		title: {
+		text: 'Bytes',
+		font: yaxisFontLayout
+		}
+	}
+}
 
+Plotly.newPlot('SentBytesChart', sentBytesChartDataset, sentBytesChartLayout);
+</script>
+";
 
-//
-let sentTimeCtx = document.getElementById('SentTime').getContext('2d');
-new Chart(sentTimeCtx, {
-  type: 'line',
-  data: { datasets: sentTime_datasets },
-  options: {
-    scales: {
-      x: [{
-        type: 'time',
-      }],
-    },
-	plugins: {
-      title: {
-        display: true,
-        text: 'Data Timed Sending'
-      },
-    },
-  }
-});
+			//
+			var receivedBytesChart = @"
+<script>
+let receivedBytesChartDataset = []
+receivedBytesChartDataset.push({
+	x: receivedBytesLog.map(item => item.EndResponse),
+	y: receivedBytesLog.map(item => item.Count),
+	type: 'scatter'
+})
 
-//
-let waitTimeCtx = document.getElementById('WaitTime').getContext('2d');
-new Chart(waitTimeCtx, {
-  type: 'line',
-  data: { datasets: waitTime_datasets },
-  options: {
-    scales: {
-      x: [{
-        type: 'time',
-      }],
-    },
-	plugins: {
-      title: {
-        display: true,
-        text: 'Data Wait Times'
-      },
-    },
-  }
-});
+let receivedBytesChartLayout ={
+	title: {
+		text:'Received Bytes',
+		font: titleFontLayout,
+	},
+	xaxis: {
+		title: {
+		text: '',
+		font: xaxisFontLayout
+		}
+	},
+	
+	yaxis: {
+		title: {
+		text: 'Bytes',
+		font: yaxisFontLayout
+		}
+	}
+}
 
-//
-let receivedTimeCtx = document.getElementById('ReceivedTime').getContext('2d');
-new Chart(receivedTimeCtx, {
-  type: 'line',
-  data: { datasets: receivedTime_datasets },
-  options: {
-    scales: {
-      x: [{
-        type: 'time',
-      }],
-    },
-	plugins: {
-      title: {
-        display: true,
-        text: 'Data Timed Receiving'
-      },
-    },
-  }
-});
-
+Plotly.newPlot('ReceivedBytesChart', receivedBytesChartDataset, receivedBytesChartLayout);
 </script>
 ";
 
@@ -449,30 +432,33 @@ new Chart(receivedTimeCtx, {
             string htmlReport = $@"
 <html>
 <head>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js' integrity='sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
-{sourceData}
-{responseTime_datasets}
-{completedRequest_datasets}
-{sentTime_datasets}
-{waitTime_datasets}
-{receivedTime_datasets}
-{sentBytesDataset}
-{receivedBytesDataset}
+<script src='https://cdn.plot.ly/plotly-2.3.0.min.js'></script>
 </head>
 <body>
-<canvas id='ResponseTime' height='70px'></canvas>
-<canvas id='CompletedResponse' height='70px'></canvas>
-<canvas id='SentTime' height='70px'></canvas>
-<canvas id='WaitTime' height='70px'></canvas>
-<canvas id='ReceivedTime' height='70px'></canvas>
-<canvas id='Sent Bytes' height='70px'></canvas>
-<canvas id='Received Bytes' height='70px'></canvas>
-{drawGraphs}
+<div id='ResponseTimeChart' style='width:95%;height:400px;'></div>
+<div id='CompletedRequestsChart' style='width:95%;height:400px;'></div>
+<div id='SentTimeChart' style='width:95%;height:400px;'></div>
+<div id='WaitTimeChart' style='width:95%;height:400px;'></div>
+<div id='ReceivedTimeChart' style='width:95%;height:400px;'></div>
+<div id='SentBytesChart' style='width:95%;height:400px;'></div>
+<div id='ReceivedBytesChart' style='width:95%;height:400px;'></div>
+{sourceData}
+{axisFontLayout}
+{titleFontLayout}
+{responseTimeChart}
+{completedRequestsChart}
+{sentTimeChart}
+{waitTimeChart}
+{receivedTimeChart}
 {sentBytesChart}
 {receivedBytesChart}
 </body>
 </html>
 ";
+
+            
+
+            //
             reportWriter.WriteLine(htmlReport);
             reportWriter.Close();
 

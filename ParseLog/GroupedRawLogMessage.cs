@@ -14,7 +14,7 @@ namespace ParseLog
 
         public int StatusCode { get; set; }
 
-        public DateTime EndResponse { get; set; }
+        public long EndResponse { get; set; }
 
         public long CompletedRequest { get; set; }
 
@@ -30,7 +30,7 @@ namespace ParseLog
             string user,
             string request,
             int statusCode,
-            DateTime endResponse,
+            long endResponse,
             long completedRequest,
             double responseTime,
             double sentTime,
