@@ -365,7 +365,11 @@ Plotly.newPlot('ReceivedTimeChart', receivedTimeChartDatasets, receivedTimeChart
 <script>
 let sentBytesChartDataset = []
 sentBytesChartDataset.push({
-	x: sentBytesLog.map(item => item.EndResponse),
+	x: sentBytesLog.map(item => {
+		let date = new Date(0);
+		date.setSeconds(item.EndResponse);
+		return date.toISOString().substr(11, 8);
+	}),
 	y: sentBytesLog.map(item => item.Count),
 	type: 'scatter'
 })
@@ -399,7 +403,11 @@ Plotly.newPlot('SentBytesChart', sentBytesChartDataset, sentBytesChartLayout);
 <script>
 let receivedBytesChartDataset = []
 receivedBytesChartDataset.push({
-	x: receivedBytesLog.map(item => item.EndResponse),
+	x: receivedBytesLog.map(item => {
+		let date = new Date(0);
+		date.setSeconds(item.EndResponse);
+		return date.toISOString().substr(11, 8);
+	}),
 	y: receivedBytesLog.map(item => item.Count),
 	type: 'scatter'
 })
@@ -435,13 +443,13 @@ Plotly.newPlot('ReceivedBytesChart', receivedBytesChartDataset, receivedBytesCha
 <script src='https://cdn.plot.ly/plotly-2.3.0.min.js'></script>
 </head>
 <body>
-<div id='ResponseTimeChart' style='width:95%;height:400px;'></div>
-<div id='CompletedRequestsChart' style='width:95%;height:400px;'></div>
-<div id='SentTimeChart' style='width:95%;height:400px;'></div>
-<div id='WaitTimeChart' style='width:95%;height:400px;'></div>
-<div id='ReceivedTimeChart' style='width:95%;height:400px;'></div>
-<div id='SentBytesChart' style='width:95%;height:400px;'></div>
-<div id='ReceivedBytesChart' style='width:95%;height:400px;'></div>
+<div id='ResponseTimeChart' style='width:99%;height:400px;'></div>
+<div id='CompletedRequestsChart' style='width:99%;height:400px;'></div>
+<div id='SentTimeChart' style='width:99%;height:400px;'></div>
+<div id='WaitTimeChart' style='width:99%;height:400px;'></div>
+<div id='ReceivedTimeChart' style='width:99%;height:400px;'></div>
+<div id='SentBytesChart' style='width:99%;height:400px;'></div>
+<div id='ReceivedBytesChart' style='width:99%;height:400px;'></div>
 {sourceData}
 {axisFontLayout}
 {titleFontLayout}
