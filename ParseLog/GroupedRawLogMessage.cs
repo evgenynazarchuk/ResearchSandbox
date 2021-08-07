@@ -12,6 +12,8 @@ namespace ParseLog
 
         public string Request { get; set; }
 
+        public string RequestLabel { get; set; }
+
         public int StatusCode { get; set; }
 
         public long EndResponse { get; set; }
@@ -29,6 +31,7 @@ namespace ParseLog
         public GroupedRawLogMessage(
             string user,
             string request,
+            string requestLabel,
             int statusCode,
             long endResponse,
             long completedRequest,
@@ -39,6 +42,7 @@ namespace ParseLog
         {
             User = user;
             Request = request;
+            RequestLabel = requestLabel;
             StatusCode = statusCode;
             EndResponse = endResponse;
             CompletedRequest = completedRequest;

@@ -10,7 +10,11 @@ namespace ParseLog
     {
         public string User { get; set; }
 
+        public string ProtocolType { get; set; }
+
         public string Request { get; set; }
+
+        public string RequestLabel { get; set; }
 
         public int StatusCode { get; set; }
 
@@ -28,7 +32,9 @@ namespace ParseLog
 
         public RawLogMessage(
             string user,
+            string protocolType,
             string request,
+            string requestLabel,
             int statusCode,
             long startSendRequest,
             long startWaitResponse,
@@ -38,7 +44,9 @@ namespace ParseLog
             int receiveBytes)
         {
             User = user;
+            ProtocolType = protocolType;
             Request = request;
+            RequestLabel = requestLabel;
             StatusCode = statusCode;
             StartSendRequest = startSendRequest;
             StartWaitResponse = startWaitResponse;

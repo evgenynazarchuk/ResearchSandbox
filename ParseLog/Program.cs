@@ -28,7 +28,7 @@ namespace ParseLog
             reader.Close();
 
             var groupByRequestStatusCodeEndResponse = rawLogMessages
-                .GroupBy(x => new { x.User, x.Request, x.StatusCode, EndResponse = (long)(x.EndResponse / 10000000) })
+                .GroupBy(x => new { x.User, x.Request, x.RequestLabel, x.StatusCode, EndResponse = (long)(x.EndResponse / 10000000) })
                 .Select(x => new
                 {
                     x.Key,
@@ -50,6 +50,7 @@ namespace ParseLog
                 GroupedRawLogMessage totalLog = new(
                     item.Key.User,
                     item.Key.Request,
+					item.Key.RequestLabel,
                     item.Key.StatusCode,
                     item.Key.EndResponse,
                     item.CompletedRequest,
@@ -122,14 +123,16 @@ let titleFontLayout = {
 <script>
 let responseTimeData = {}
 for(let item of groupedRawLog) {
-	if (responseTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+	if (responseTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] == undefined)
     {
-        responseTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        responseTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] = []
     }
+
 	let date = new Date(0);
 	date.setSeconds(item.EndResponse);
 	let timeString = date.toISOString().substr(11, 8);
-    responseTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.ResponseTime / 10000 })
+
+    responseTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode].push({ x: timeString, y: item.ResponseTime / 10000 })
 }
 
 let responseTimeChartDatasets = []
@@ -137,26 +140,25 @@ for(let key in responseTimeData) {
 	responseTimeChartDatasets.push({
 		x: responseTimeData[key].map(item => item.x),
 		y: responseTimeData[key].map(item => item.y),
-		type: 'scatter'
+		type: 'scatter',
+		name: key,
 	})
 }
 
 let responseTimeChartLayout ={
+	showlegend: true,
 	title: {
 		text:'Response Time',
-		font: titleFontLayout,
 	},
 	xaxis: {
 		title: {
 		text: '',
-		font: xaxisFontLayout
 		}
 	},
 	
 	yaxis: {
 		title: {
 		text: 'Milliseconds',
-		font: yaxisFontLayout
 		}
 	}
 }
@@ -172,14 +174,14 @@ Plotly.newPlot('ResponseTimeChart', responseTimeChartDatasets, responseTimeChart
 let completedRequestsData = { };
 for (let item of groupedRawLog)
 {
-    if (completedRequestsData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    if (completedRequestsData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] == undefined)
     {
-        completedRequestsData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        completedRequestsData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] = []
     }
 	let date = new Date(0);
 	date.setSeconds(item.EndResponse);
 	let timeString = date.toISOString().substr(11, 8);
-    completedRequestsData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.CompletedRequest })
+    completedRequestsData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode].push({ x: timeString, y: item.CompletedRequest })
 }
 
 let completedRequestsChartDatasets = []
@@ -187,25 +189,24 @@ for(let key in completedRequestsData) {
 	completedRequestsChartDatasets.push({
 		x: completedRequestsData[key].map(item => item.x),
 		y: completedRequestsData[key].map(item => item.y),
-		type: 'scatter'
+		type: 'scatter',
+		name: key
 	})
 }
 
 let completedRequestsChartLayout = {
+	showlegend: true,
 	title: {
 		text:'Completed Requests',
-		font: titleFontLayout,
 	},
 	xaxis: {
 		title: {
 			text: '',
-			font: xaxisFontLayout
 		}
 	},
 	yaxis: {
 		title: {
 			text: 'Requests',
-			font: yaxisFontLayout
 		}
 	}
 }
@@ -220,14 +221,14 @@ Plotly.newPlot('CompletedRequestsChart', completedRequestsChartDatasets, complet
 let sentTimeData = { };
 for (let item of groupedRawLog)
 {
-    if (sentTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    if (sentTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] == undefined)
     {
-        sentTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        sentTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] = []
     }
 	let date = new Date(0);
 	date.setSeconds(item.EndResponse);
 	let timeString = date.toISOString().substr(11, 8);
-    sentTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.SentTime / 10000 })
+    sentTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode].push({ x: timeString, y: item.SentTime / 10000 })
 }
 
 let sentTimeChartDatasets = []
@@ -235,26 +236,25 @@ for(let key in sentTimeData) {
 	sentTimeChartDatasets.push({
 		x: sentTimeData[key].map(item => item.x),
 		y: sentTimeData[key].map(item => item.y),
-		type: 'scatter'
+		type: 'scatter',
+		name: key
 	})
 }
 
 
 let sentTimeChartlayout ={
+	showlegend: true,
 	title: {
 		text:'Data Timed Sending',
-		font: titleFontLayout,
 	},
 	xaxis: {
 		title: {
 			text: '',
-			font: xaxisFontLayout
 		}
 	},
 	yaxis: {
 		title: {
 			text: 'Milliseconds',
-			font: yaxisFontLayout
 		}
 	}
 }
@@ -269,14 +269,14 @@ Plotly.newPlot('SentTimeChart', sentTimeChartDatasets, sentTimeChartlayout);
 let waitTimeData = { };
 for (let item of groupedRawLog)
 {
-    if (waitTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    if (waitTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] == undefined)
     {
-        waitTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        waitTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] = []
     }
 	let date = new Date(0);
 	date.setSeconds(item.EndResponse);
 	let timeString = date.toISOString().substr(11, 8);
-    waitTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.WaitTime / 10000 })
+    waitTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode].push({ x: timeString, y: item.WaitTime / 10000 })
 }
 
 let waitTimeChartDatasets = []
@@ -284,25 +284,24 @@ for(let key in waitTimeData) {
 	waitTimeChartDatasets.push({
 		x: waitTimeData[key].map(item => item.x),
 		y: waitTimeData[key].map(item => item.y),
-		type: 'scatter'
+		type: 'scatter',
+		name: key
 	})
 }
 
 let waitTimeChartLayout ={
+	showlegend: true,
 	title: {
 		text:'Data Wait Times',
-		font: titleFontLayout,
 	},
 	xaxis: {
 		title: {
 			text: '',
-			font: xaxisFontLayout
 		}
 	},
 	yaxis: {
 		title: {
 			text: 'Milliseconds',
-			font: yaxisFontLayout
 		}
 	}
 }
@@ -317,14 +316,14 @@ Plotly.newPlot('WaitTimeChart', waitTimeChartDatasets, waitTimeChartLayout);
 let receivedTimeData = { };
 for (let item of groupedRawLog)
 {
-    if (receivedTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] == undefined)
+    if (receivedTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] == undefined)
     {
-        receivedTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode] = []
+        receivedTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode] = []
     }
 	let date = new Date(0);
 	date.setSeconds(item.EndResponse);
 	let timeString = date.toISOString().substr(11, 8);
-    receivedTimeData[item.User + ' ' + item.Request + ' ' + item.StatusCode].push({ x: timeString, y: item.ReceivedTime / 10000 })
+    receivedTimeData[item.User + ' ' + item.Request + ' ' + item.RequestLabel + ' ' + item.StatusCode].push({ x: timeString, y: item.ReceivedTime / 10000 })
 }
 
 let receivedTimeChartDatasets = []
@@ -332,26 +331,25 @@ for(let key in receivedTimeData) {
 	receivedTimeChartDatasets.push({
 		x: receivedTimeData[key].map(item => item.x),
 		y: receivedTimeData[key].map(item => item.y),
-		type: 'scatter'
+		type: 'scatter',
+		name: key
 	})
 }
 
 let receivedTimeChartLayout ={
+	showlegend: true,
 	title: {
 		text:'Data Timed Receiving',
-		font: titleFontLayout,
 	},
 	xaxis: {
 		title: {
 		text: '',
-		font: xaxisFontLayout
 		}
 	},
 	
 	yaxis: {
 		title: {
 		text: 'Milliseconds',
-		font: yaxisFontLayout
 		}
 	}
 }
@@ -374,22 +372,20 @@ sentBytesChartDataset.push({
 	type: 'scatter'
 })
 
-let sentBytesChartLayout ={
+let sentBytesChartLayout = {
+	showlegend: false,
 	title: {
 		text:'Sent Bytes',
-		font: titleFontLayout,
 	},
 	xaxis: {
 		title: {
 		text: '',
-		font: xaxisFontLayout
 		}
 	},
 	
 	yaxis: {
 		title: {
 		text: 'Bytes',
-		font: yaxisFontLayout
 		}
 	}
 }
@@ -412,22 +408,20 @@ receivedBytesChartDataset.push({
 	type: 'scatter'
 })
 
-let receivedBytesChartLayout ={
+let receivedBytesChartLayout = {
+	showlegend: false,
 	title: {
 		text:'Received Bytes',
-		font: titleFontLayout,
 	},
 	xaxis: {
 		title: {
 		text: '',
-		font: xaxisFontLayout
 		}
 	},
 	
 	yaxis: {
 		title: {
 		text: 'Bytes',
-		font: yaxisFontLayout
 		}
 	}
 }
