@@ -7,11 +7,10 @@ using ReflectionRunner;
 
 namespace ReflectionRunner.Tests
 {
-    [TestClass]
     public class TestSample2
     {
         [Test]
-        public async void Test1()
+        public async Task Test1()
         {
             Console.WriteLine($"{nameof(Test1)}");
 
@@ -19,7 +18,7 @@ namespace ReflectionRunner.Tests
         }
 
         [Test]
-        public async void Test2()
+        public async Task Test2()
         {
             Console.WriteLine($"{nameof(Test2)}");
 

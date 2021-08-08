@@ -7,19 +7,19 @@ using ReflectionRunner;
 
 namespace ReflectionRunner.Tests
 {
-    [TestClass]
     public class TestSample1
     {
-        [Test]
-        public async void Test1()
+        [Test(5, 7)]
+        [Test(21, 27)]
+        public async Task Test1(int size, int length)
         {
-            Console.WriteLine($"{nameof(Test1)}");
+            Console.WriteLine($"{nameof(Test1)} {size} {length}");
 
             await Task.CompletedTask;
         }
 
         [Test]
-        public async void Test2()
+        public async Task Test2()
         {
             Console.WriteLine($"{nameof(Test2)}");
 
