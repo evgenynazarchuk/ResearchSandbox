@@ -89,6 +89,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReflectionRunner", "Reflect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGeneration", "DataGeneration\DataGeneration.csproj", "{FDA6EE99-396A-4FF3-A318-FCDF2DCED0F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadConfiguration", "ReadConfiguration\ReadConfiguration.csproj", "{27515B7A-10CC-4797-8B4A-F7A8F6180E5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -267,6 +269,10 @@ Global
 		{FDA6EE99-396A-4FF3-A318-FCDF2DCED0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA6EE99-396A-4FF3-A318-FCDF2DCED0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDA6EE99-396A-4FF3-A318-FCDF2DCED0F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27515B7A-10CC-4797-8B4A-F7A8F6180E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27515B7A-10CC-4797-8B4A-F7A8F6180E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27515B7A-10CC-4797-8B4A-F7A8F6180E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27515B7A-10CC-4797-8B4A-F7A8F6180E5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
