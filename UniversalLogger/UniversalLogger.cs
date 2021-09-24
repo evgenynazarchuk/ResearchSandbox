@@ -27,13 +27,13 @@ namespace Logger
         }
 
         // append log
-        public void AppendLogMessage(string logName, string logMessage, Type logMessageType)
+        public virtual void AppendLogMessage(string logName, string logMessage, Type logMessageType)
         {
             this.logQueue.Enqueue((logName, logMessage, logMessageType));
         }
 
         // save logs
-        public void StartProcessing()
+        public virtual void StartProcessing()
         {
             while (!this.logQueue.IsEmpty)
             {
@@ -69,11 +69,17 @@ namespace Logger
 
                 this.PostProcessing(logName);
             }
+
+            this.PostProcessing();
         }
 
         // after finish
         public virtual void PostProcessing(string logName)
         { 
+        }
+
+        public virtual void PostProcessing()
+        {
         }
 
         // from string to string
