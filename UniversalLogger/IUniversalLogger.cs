@@ -20,6 +20,8 @@ namespace Logger
 
         void StartProcessing();
 
+        void StopProcessing();
+
         void Finish();
 
         void PostProcessing(string logName);

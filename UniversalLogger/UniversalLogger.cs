@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.Json;
 using System.Reflection;
+using System.Threading;
 
 namespace Logger
 {
     public class UniversalLogger : IUniversalLogger
     {
+        public readonly CancellationToken Token;
+
+        public readonly CancellationTokenSource TokenSource;
+
         protected readonly ConcurrentQueue<(string logName, string logMessage, Type logType)> logQueue;
 
         protected readonly Dictionary<string, StreamWriter> writers;
@@ -35,8 +40,12 @@ namespace Logger
         // save logs
         public virtual void StartProcessing()
         {
-            while (!this.logQueue.IsEmpty)
+            while (true)
             {
+                if (this.logQueue.IsEmpty && this.Token.IsCancellationRequested)
+                {
+                    break;
+                }
                 this.logQueue.TryDequeue(out (string logName, string logMessage, Type logMessageType) log);
 
                 var logWriter = this.writers.GetValueOrDefault(log.logName);
@@ -58,6 +67,11 @@ namespace Logger
             }
 
             this.Finish();
+        }
+
+        public virtual void StopProcessing()
+        {
+            this.TokenSource.Cancel();
         }
 
         public virtual void Finish()
